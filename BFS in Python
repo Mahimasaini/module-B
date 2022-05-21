@@ -1,0 +1,30 @@
+graph = {
+  5 : [3,1],
+  3 : [2,4],
+  1 : [6],
+  2 : [3],
+  4 : [6],
+  6 : [5]
+}
+
+visitingVertex = [] 
+storingVisitedVertex = []     
+
+def breadthFirstSearchProgram(visitingVertex, graph, vertex): 
+  visitingVertex.append(vertex)
+  storingVisitedVertex.append(vertex)
+
+  while storingVisitedVertex:          
+    visitedVertex = storingVisitedVertex.pop(0) 
+    print ("visitedVertex",visitedVertex) 
+
+    for neighbouringVertex in graph[visitedVertex]:
+      if neighbouringVertex not in visitingVertex:
+        visitingVertex.append(neighbouringVertex)
+        print("visitingVertex",neighbouringVertex)
+        storingVisitedVertex.append(neighbouringVertex)
+
+print("The graph is:",graph)
+print("The breadth first search is as follows :")
+breadthFirstSearchProgram(visitingVertex, graph, 5)   
+print("The vertices are visited in this order :",visitingVertex)
