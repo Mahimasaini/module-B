@@ -1,0 +1,30 @@
+var binarySearchProgram = function(arrayOfElements, searchedElement) {
+  console.log('Searched element is:',searchedElement)
+var firstElement = 0;
+var lastElement = arrayOfElements.length - 1;
+   var middleElement;
+   
+   while(firstElement <= lastElement) {
+   middleElement = Math.floor((lastElement + firstElement) / 2);
+if (arrayOfElements[middleElement] === searchedElement) {
+       return middleElement;
+   }
+   else if (arrayOfElements[middleElement] < searchedElement) {
+       firstElement = middleElement + 1;
+   }
+   else {
+       lastElement = middleElement - 1;
+   }
+}
+return -1;
+};
+var arrayOfElements =  [4,6,7,12,57,86,99,123];
+console.log("Total no. of elements in array:", arrayOfElements.length);
+console.log('Elements of array are :', arrayOfElements);
+
+var result = binarySearchProgram(arrayOfElements, 86);
+if(result!=-1){
+console.log("Searched element is present at index " + result);
+}else{
+   console.log("Searched element is not present in the array.")
+}
