@@ -1,0 +1,46 @@
+const verticesOfGraph = 'PHX BKK OKC JFK LAX MEX EZE HEL LOS LAP LIM'.split(' ');
+
+const edgesOfGraph = [
+    ['PHX', 'LAX'],
+    ['PHX', 'JFK'],
+    ['JFK', 'OKC'],
+    ['JFK', 'HEL'],
+    ['JFK', 'LOS'],
+    ['MEX', 'LAX'],
+    ['MEX', 'BKK'],
+    ['MEX', 'LIM'],
+    ['MEX', 'EZE'],
+    ['LIM', 'BKK'],
+];
+
+const listOfVerticesWithTheirEdges = new Map();
+
+function addVertex(vertex) {
+    listOfVerticesWithTheirEdges.set(vertex, []);
+}
+function addEdge(startingVertex, endingVertex) {
+    listOfVerticesWithTheirEdges.get(startingVertex).push(endingVertex);
+    listOfVerticesWithTheirEdges.get(endingVertex).push(startingVertex);
+}
+
+function makeGraph(){
+verticesOfGraph.forEach(addVertex);
+edgesOfGraph.forEach(edge => addEdge(...edge))
+}
+
+function depthFirstSearchProgram(startingVertex,visitedVertex = []) {
+    console.log("Starting vertex is :",startingVertex)
+  makeGraph();
+  visitedVertex.push(startingVertex);
+  
+console.log("Visited vertices are :",visitedVertex)
+ const adjacencyList = listOfVerticesWithTheirEdges.get(startingVertex);
+ for (const vertex of adjacencyList) {
+     if (!visitedVertex.includes(vertex)) {
+         depthFirstSearchProgram(vertex,visitedVertex);
+     }
+ }
+console.log("The vertices are visited in this order :",visitedVertex);
+}
+
+depthFirstSearchProgram('PHX')
