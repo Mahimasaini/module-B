@@ -1,0 +1,112 @@
+#include <iostream>
+  using namespace std;
+     
+    //Class BinaryTree represent each node
+    class BinaryTree{
+    public:
+        int data;
+        BinaryTree *leftElementOfTree {nullptr};
+        BinaryTree *rightElementOfTree {nullptr};
+     
+        BinaryTree();
+        BinaryTree(int rootElementOfBinaryTree);
+        void insertingDataInBinaryTree(int rootElementOfBinaryTree);
+        void inOrderTraversalOfBinaryTree();
+        void preOrderTraversalOfBinaryTree();
+        void postOrderTraversalOfBinaryTree();
+    };
+     
+    BinaryTree::BinaryTree(int rootElementOfBinaryTree){
+        data = rootElementOfBinaryTree;
+    }
+  
+    void BinaryTree::insertingDataInBinaryTree(int rootElementOfBinaryTree){
+        if(rootElementOfBinaryTree < data){
+            if(leftElementOfTree == nullptr){
+                leftElementOfTree= new BinaryTree(rootElementOfBinaryTree);
+            } else {
+                leftElementOfTree->insertingDataInBinaryTree(rootElementOfBinaryTree);
+            }
+        } else {
+            if(rightElementOfTree == nullptr){
+                rightElementOfTree = new BinaryTree(rootElementOfBinaryTree);
+            } else {
+                rightElementOfTree->insertingDataInBinaryTree(rootElementOfBinaryTree);
+            }
+        }
+    }
+     
+    // Inorder traversal algorithm
+    void BinaryTree::inOrderTraversalOfBinaryTree(){
+     
+      //1.Left subtree of Binary tree
+      if(leftElementOfTree != nullptr){
+        leftElementOfTree->inOrderTraversalOfBinaryTree();
+      }
+     
+      //2. Root of Binary tree
+      cout << data << " ";
+     
+      //3. Right subtree of Binary tree
+      if(rightElementOfTree != nullptr){
+        rightElementOfTree->inOrderTraversalOfBinaryTree();
+      }
+    }
+     
+    // Preorder traversal algorithm
+    void BinaryTree::preOrderTraversalOfBinaryTree(){
+     
+      //1. Root of Binary tree
+      cout << data << " ";
+     
+      //2.Left subtree of Binary tree
+      if(leftElementOfTree != nullptr){
+        leftElementOfTree->preOrderTraversalOfBinaryTree();
+      }
+     
+      //3. Right subtree of Binary tree
+      if(rightElementOfTree != nullptr){
+        rightElementOfTree->preOrderTraversalOfBinaryTree();
+      }
+    }
+     
+    // Postorder Traversal Algorithm
+    void BinaryTree::postOrderTraversalOfBinaryTree(){
+     
+      //1.Left subtree of Binary tree
+      if(leftElementOfTree != nullptr){
+        leftElementOfTree->postOrderTraversalOfBinaryTree();
+      }
+     
+      //2. Right subtree of Binary tree
+      if(rightElementOfTree != nullptr){
+        rightElementOfTree->postOrderTraversalOfBinaryTree();
+      }
+     
+      //3. Root of Binary tree
+      cout << data << " ";
+    }
+     
+    int main()
+    {
+      BinaryTree *root= new BinaryTree(25);
+     
+      root->insertingDataInBinaryTree(20);
+      root->insertingDataInBinaryTree(31);
+      root->insertingDataInBinaryTree(19);
+      root->insertingDataInBinaryTree(23);
+      root->insertingDataInBinaryTree(26);
+      root->insertingDataInBinaryTree(36);
+     
+      cout << "\n Inorder: ";
+      root->inOrderTraversalOfBinaryTree();
+     
+      cout << "\n Preorder: ";
+      root->preOrderTraversalOfBinaryTree();
+     
+      cout << "\n Postorder: ";
+      root->postOrderTraversalOfBinaryTree();
+     
+      return 0;
+    }
+    
