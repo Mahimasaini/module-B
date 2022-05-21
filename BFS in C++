@@ -1,0 +1,43 @@
+#include<iostream>
+using namespace std;
+  int makeEdge[10][10],i,j,k,queue[10],front,rare,visit[10],visitedVertex[10];
+  int vertices, edges,initialVertex;
+  int main()
+  {
+      cout <<"Enter no. of vertices you wants in graph:";
+      cin >> vertices;
+      cout <<"Enter no. of edges you wants in graph:";
+      cin >> edges;
+      cout <<"Edges of graph:";
+      for(k=1; k<=edges; k++)
+      {
+        cout<<"From vertex -"<<" ";
+        cin>>i;
+        cout<<"To vertex -"<<" ";
+        cin>>j;
+        makeEdge[i][j]=1;
+      }
+      cout <<"Enter the vertex from where you wants to traverse the graph:";
+      cin >>initialVertex;
+      cout <<"The visited vertices are:";
+      cout <<initialVertex<<" ";
+      visitedVertex[initialVertex]=1;
+      k=1;
+      while(k<vertices)
+      {
+          for(j=1; j<=vertices; j++)
+              if(makeEdge[initialVertex][j]!=0 && visitedVertex[j]!=1 && visit[j]!=1)
+              {
+                  visit[j]=1;
+                  queue[rare++]=j;
+              }
+              initialVertex=queue[front++];
+          cout<<initialVertex <<" ";
+          k++;
+          visit[initialVertex]=0;
+          visitedVertex[initialVertex]=1;
+      }
+      return 0;
+  }
+  
+  
