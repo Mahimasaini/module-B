@@ -1,0 +1,23 @@
+graph = {
+  5 : [3,1],
+  3 : [2,4],
+  1 : [6],
+  2 : [3],
+  4 : [6],
+  6 : [5]
+}
+
+visitingVertex = []
+
+def depthFirstSearchProgram(visitingVertex, graph, vertex): 
+    if vertex not in visitingVertex:
+        print (vertex)
+        visitingVertex.append(vertex)
+        for neighbouringVertex in graph[vertex]:
+            depthFirstSearchProgram(visitingVertex, graph, neighbouringVertex)
+
+
+print("The graph is:",graph)
+print("The depth first search is as follows :")
+depthFirstSearchProgram(visitingVertex, graph, 5)   
+print("The vertices are visited in this order :",visitingVertex)
