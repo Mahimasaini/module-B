@@ -1,0 +1,50 @@
+const verticesOfGraph = 'PHX BKK OKC JFK LAX MEX EZE HEL LOS LAP LIM'.split(' ');
+
+const edgesOfGraph = [
+    ['PHX', 'LAX'],
+    ['PHX', 'JFK'],
+    ['JFK', 'OKC'],
+    ['JFK', 'HEL'],
+    ['JFK', 'LOS'],
+    ['MEX', 'LAX'],
+    ['MEX', 'BKK'],
+    ['MEX', 'LIM'],
+    ['MEX', 'EZE'],
+    ['LIM', 'BKK'],
+];
+
+const listOfVerticesWithTheirEdges = new Map();
+
+function addVertex(vertex) {
+    listOfVerticesWithTheirEdges.set(vertex, []);
+}
+function addEdge(startingVertex, endingVertex) {
+    listOfVerticesWithTheirEdges.get(startingVertex).push(endingVertex);
+    listOfVerticesWithTheirEdges.get(endingVertex).push(startingVertex);
+}
+
+function makeGraph(){
+verticesOfGraph.forEach(addVertex);
+edgesOfGraph.forEach(edge => addEdge(...edge))
+}
+
+function breadthFirstSearchProgram(startingVertex) {
+    makeGraph();
+    console.log("Starting vertex is :",startingVertex)
+    const visitedVertex = [];
+    const queue = [startingVertex];
+    while (queue.length > 0) {
+        const visitingVertex = queue.shift(); 
+        const adjacencyList = listOfVerticesWithTheirEdges.get(visitingVertex);
+
+        for (const vertex of adjacencyList) {
+            if (!visitedVertex.includes(vertex)) {
+                visitedVertex.push(vertex);
+                queue.push(vertex);
+                console.log("Visited vertices are :",visitedVertex)
+            }
+        }
+    }
+       console.log("The vertices are visited in this order :",visitedVertex)
+}
+breadthFirstSearchProgram('PHX')
