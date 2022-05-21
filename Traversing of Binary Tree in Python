@@ -1,0 +1,36 @@
+class BinaryTree:
+	def __init__(self, key):
+		self.left = None
+		self.right = None
+		self.value = key
+
+def inOrderTraversalOfBinaryTree(rootElement):
+	if rootElement:
+		inOrderTraversalOfBinaryTree(rootElement.left)
+		print(rootElement.value),
+		inOrderTraversalOfBinaryTree(rootElement.right)
+
+def preOrderTraversalOfBinaryTree(rootElement):
+	if rootElement:
+		print(rootElement.value),
+		preOrderTraversalOfBinaryTree(rootElement.left)
+		preOrderTraversalOfBinaryTree(rootElement.right),
+
+def postOrderTraversalOfBinaryTree(rootElement):
+	if rootElement:
+		postOrderTraversalOfBinaryTree(rootElement.left)
+		postOrderTraversalOfBinaryTree(rootElement.right)
+		print(rootElement.value)
+
+rootElement = BinaryTree(1)
+rootElement.left = BinaryTree(2)
+rootElement.right = BinaryTree(3)
+rootElement.left.left = BinaryTree(4)
+rootElement.left.right = BinaryTree(5)
+
+print ("Inorder traversing of binary tree is")
+inOrderTraversalOfBinaryTree(rootElement);
+print ("Preorder traversing of binary tree is")
+preOrderTraversalOfBinaryTree(rootElement);
+print("Postorder traversing of binary tree is")
+postOrderTraversalOfBinaryTree(rootElement);
