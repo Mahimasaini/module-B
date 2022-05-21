@@ -1,0 +1,47 @@
+class BinaryTree {
+	constructor(value) {
+		this.key = value;
+		this.left = null;
+		this.right = null;
+	}
+}
+
+	function inOrderTraversalOfBinaryTree(rootElement) {
+		if (rootElement == null)
+			return;
+		inOrderTraversalOfBinaryTree(rootElement.left);
+		console.log(rootElement.key + " ");
+		inOrderTraversalOfBinaryTree(rootElement.right);
+	}
+
+	function preOrderTraversalOfBinaryTree(rootElement) {
+		if (rootElement == null)
+			return;
+		console.log(rootElement.key + " ");
+		preOrderTraversalOfBinaryTree(rootElement.left);
+		preOrderTraversalOfBinaryTree(rootElement.right);
+	}
+
+  function postOrderTraversalOfBinaryTree(rootElement) {
+		if (rootElement == null)
+			return;
+		postOrderTraversalOfBinaryTree(rootElement.left);
+		postOrderTraversalOfBinaryTree(rootElement.right);
+		console.log(rootElement.key + " ");
+	}
+
+  var rootElement = null;
+  rootElement = new BinaryTree(1);
+  rootElement.left = new BinaryTree(2);
+  rootElement.right = new BinaryTree(3);
+  rootElement.left.left = new BinaryTree(4);
+  rootElement.left.right = new BinaryTree(5);
+
+console.log("Preorder traversal of binary tree is:");
+  preOrderTraversalOfBinaryTree(rootElement);
+
+  console.log("Inorder traversal of binary tree is :");
+  inOrderTraversalOfBinaryTree(rootElement);
+
+console.log("Postorder traversal of binary tree is :");
+  postOrderTraversalOfBinaryTree(rootElement);	
