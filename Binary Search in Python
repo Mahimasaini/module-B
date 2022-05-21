@@ -1,0 +1,29 @@
+def binarySearchProgram(arrayOfElements,leftElement,rightElement, searchedElement):
+
+	if rightElement >=leftElement:
+
+		middleElement =leftElement + (rightElement -leftElement) / 2
+
+		if arrayOfElements[middleElement] == searchedElement:
+			return middleElement
+
+		elif arrayOfElements[middleElement] > searchedElement:
+			return binarySearchProgram(arrayOfElements,leftElement, middleElement-1, searchedElement)
+
+		else:
+			return binarySearchProgram(arrayOfElements, middleElement + 1,rightElement, searchedElement)
+
+	else:
+		return -1
+
+
+arrayOfElements = [2, 3, 4, 10, 40]
+searchedElement = 10
+
+result = binarySearchProgram(arrayOfElements, 0, len(arrayOfElements)-1, searchedElement)
+
+if result != -1:
+	print("Searched element is present at index % d" % result)
+else:
+	print("Searched element is not present in array.")
+
