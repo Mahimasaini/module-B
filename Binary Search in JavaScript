@@ -1,8 +1,8 @@
 var binarySearchProgram = function(arrayOfElements, searchedElement) {
-  console.log('Searched element is:',searchedElement)
+console.log('Searched element is:',searchedElement)
 var firstElement = 0;
 var lastElement = arrayOfElements.length - 1;
-   var middleElement;
+var middleElement;
    
    while(firstElement <= lastElement) {
    middleElement = Math.floor((lastElement + firstElement) / 2);
