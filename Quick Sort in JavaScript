@@ -1,0 +1,42 @@
+function swapElements(array, firstElement, lastElement){
+  var temp = array[firstElement];
+  array[firstElement] = array[lastElement];
+  array[lastElement] = temp;
+}
+function rearrangingArray(array, firstElement, lastElement) {
+  var pivot = array[Math.floor((lastElement + firstElement) / 2)], 
+      i = firstElement, 
+      j = lastElement; 
+  while (i <= j) {
+      while (array[i] < pivot) {
+          i++;
+      }
+      while (array[j] > pivot) {
+          j--;
+      }
+      if (i <= j) {
+          swapElements(array, i, j); 
+          i++;
+          j--;
+      }
+  }
+  return i;
+}
+
+function quickSortProgram(array, firstElement, lastElement) {
+  if (array.length > 1) {
+    var partitioningElement = rearrangingArray(array, firstElement, lastElement); 
+      if (firstElement < partitioningElement - 1) { 
+          quickSortProgram(array, firstElement, partitioningElement - 1);
+      }
+      if (partitioningElement < lastElement) { 
+          quickSortProgram(array, partitioningElement, lastElement);
+      }
+  }
+  return array;
+}
+
+var array = [8, 7, 2, 1, 0, 9, 6];
+console.log("Array before sorting the elements :" ,array);
+var sortedArray = quickSortProgram(array, 0, array.length - 1);
+console.log("Array after sorting the elements :", sortedArray);
