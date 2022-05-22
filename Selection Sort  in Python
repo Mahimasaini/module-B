@@ -1,0 +1,19 @@
+def selectionSortProgram(array, sizeOfArray):
+  
+    for indexOfElement in range(sizeOfArray):
+        currentIndexOfElement = indexOfElement
+
+        for i in range(indexOfElement + 1, sizeOfArray):
+         
+                currentIndexOfElement = i
+         
+        (array[indexOfElement], array[currentIndexOfElement]) = (array[currentIndexOfElement], array[indexOfElement])
+
+
+arrayOfElements = [-2, 45, 0, 11, -9]
+print('Array before sorting the elements :')
+print(arrayOfElements)
+sizeOfArray = len(arrayOfElements)
+selectionSortProgram(arrayOfElements, sizeOfArray)
+print('Array after sorting the elements :')
+print(arrayOfElements)
