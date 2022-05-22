@@ -1,0 +1,18 @@
+function selecttionSortProgram(arrayOfElements) {  
+    for (var i = 0; i < arrayOfElements.length; i++) {  
+        var currentElement = arrayOfElements[i];  
+        for (var j = i + 1; j < arrayOfElements.length; j++) {  
+            if (currentElement > arrayOfElements[j]) {  
+                currentElement = arrayOfElements[j];  
+            }  
+        }  
+        var index = arrayOfElements.indexOf(currentElement);  
+        var currentElementValue = arrayOfElements[i];  
+        arrayOfElements[i] = currentElement;  
+        arrayOfElements[index] = currentElementValue;  
+    }  
+} 
+var arrayOfElements = [8,3,2,4,7,5,0,1,6,9];  
+console.log("Array before sorting the elements :",arrayOfElements);  
+selecttionSortProgram(arrayOfElements);  
+console.log("Array before sorting the elements :",arrayOfElements);  
