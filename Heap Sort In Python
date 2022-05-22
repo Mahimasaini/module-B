@@ -1,0 +1,33 @@
+def sortingArrayInMaxHeap(array, sizeOfArray, i):
+      largest = i
+      leftElement = 2 * i + 1
+      rightElement = 2 * i + 2
+  
+      if leftElement < sizeOfArray and array[i] < array[leftElement]:
+          largest = leftElement
+  
+      if rightElement < sizeOfArray and array[largest] < array[rightElement]:
+          largest = rightElement
+  
+      if largest != i:
+          array[i], array[largest] = array[largest], array[i]
+          sortingArrayInMaxHeap(array, sizeOfArray, largest)
+  
+  
+def heapSortProgram(array):
+    sizeOfArray = len(array)
+  
+    for i in range(sizeOfArray//2, -1, -1):
+        sortingArrayInMaxHeap(array, sizeOfArray, i)
+  
+    for i in range(sizeOfArray-1, 0, -1):
+        array[i], array[0] = array[0], array[i]
+        sortingArrayInMaxHeap(array, i, 0)
+  
+array = [1, 12, 9, 5, 6, 10]
+print("Array before sorting the elements : ",array)
+heapSortProgram(array)
+sizeOfArray = len(array)
+print("Array before sorting the elements : ",array)
+
+  
