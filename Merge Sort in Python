@@ -1,0 +1,46 @@
+def mergeSortProgram(array):
+    if len(array) > 1:
+
+        middleElement = len(array)//2
+        subArray1 = array[:middleElement]
+        subArray2 = array[middleElement:]
+
+        mergeSortProgram(subArray1)
+        mergeSortProgram(subArray2)
+
+        i = j = k = 0
+        
+        while i < len(subArray1) and j < len(subArray2):
+            if subArray1[i] < subArray2[j]:
+                array[k] = subArray1[i]
+                i += 1
+            else:
+                array[k] = subArray2[j]
+                j += 1
+            k += 1
+
+      
+        while i < len(subArray1):
+            array[k] = subArray1[i]
+            i += 1
+            k += 1
+
+        while j < len(subArray2):
+            array[k] = subArray2[j]
+            j += 1
+            k += 1
+
+
+def showMergeSortArray(array):
+    for i in range(len(array)):
+        print(array[i], end=" ")
+    print()
+
+
+if __name__ == '__main__':
+    array = [8,3,2,4,7,5,0,1,6,9]
+    print("Array before sorting the elements :")
+    showMergeSortArray(array)
+    mergeSortProgram(array)
+    print("Array after sorting the elements :")
+    showMergeSortArray(array)
