@@ -1,0 +1,26 @@
+def countingSortProgram(array):
+    sizeOfArray = len(array)
+    output = [0] * sizeOfArray
+
+    count = [0] * 10
+
+    for i in range(0, sizeOfArray):
+        count[array[i]] += 1
+
+    for i in range(1, 10):
+        count[i] += count[i - 1]
+
+    i = sizeOfArray - 1
+    while i >= 0:
+        output[count[array[i]] - 1] = array[i]
+        count[array[i]] -= 1
+        i -= 1
+
+    for i in range(0, sizeOfArray):
+        array[i] = output[i]
+
+
+array = [4, 2, 2, 8, 3, 3, 1]
+print("Array before sorting the elements : ",array)
+countingSortProgram(array)
+print("Array after sorting the elements : ",array)
