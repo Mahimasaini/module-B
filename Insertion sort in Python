@@ -1,0 +1,15 @@
+def insertionSortProgram(array):  
+        for i in range(1, len(array)):  
+            currentValue = array[i]  
+            j = i - 1  
+            while j >= 0 and currentValue < array[j]:  
+                array[j + 1] = array[j]  
+                j -= 1  
+            array[j + 1] = currentValue  
+        return array  
+
+array = [5,7,1,9,8,3,2]
+print("Array before sorting the elements :", array)  
+insertionSortProgram(array)  
+print("Array after sorting the elements :", array) 
+
