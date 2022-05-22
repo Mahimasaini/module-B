@@ -1,0 +1,79 @@
+#include <iostream>
+using namespace std;
+  
+  void mergingSortedSubArraysIntoArray(int array[], int firstElement, int middleElement, int lastElement) {
+    
+    int totalElements1 = middleElement - firstElement + 1;
+    int totalElements2 = lastElement - middleElement;
+  
+    int subArray1[totalElements1], subArray2[totalElements2];
+  
+    for (int i = 0; i < totalElements1; i++)
+      subArray1[i] = array[firstElement + i];
+    for (int j = 0; j < totalElements2; j++)
+     subArray2[j] = array[middleElement + 1 + j];
+  
+    int i, j, k;
+    i = 0;
+    j = 0;
+    k = firstElement;
+  
+   
+    while (i < totalElements1 && j < totalElements2) {
+      if (subArray1[i] <= subArray2[j]) {
+        array[k] = subArray1[i];
+        i++;
+      } else {
+        array[k] = subArray2[j];
+        j++;
+      }
+      k++;
+    }
+  
+    while (i < totalElements1) {
+      array[k] = subArray1[i];
+      i++;
+      k++;
+    }
+  
+    while (j < totalElements2) {
+      array[k] = subArray2[j];
+      j++;
+      k++;
+    }
+  }
+  
+  void mergeSort(int arrayOfElements[], int firstElement, int lastElement) {
+    if (firstElement < lastElement) {
+      int middleElement = firstElement + (lastElement - firstElement) / 2;
+  
+      mergeSort(arrayOfElements, firstElement, middleElement); 
+     
+      mergeSort(arrayOfElements, middleElement + 1, lastElement);
+  
+      mergingSortedSubArraysIntoArray(arrayOfElements, firstElement, middleElement, lastElement);
+    }
+  }
+  
+  void showMergeSortArray(int arrayOfElements[], int sizeOfArray) {
+    for (int i = 0; i < sizeOfArray; i++)
+      cout << arrayOfElements[i] << " ";
+      cout << endl;
+  }
+  
+  int main() {
+     int sizeOfArray;
+     cout << "Enter the number of elements : ";
+     cin >> sizeOfArray;
+     int arrayOfElements[sizeOfArray];    
+     cout << "Enter elements of array :" << endl;
+     for(int i = 0; i<sizeOfArray; i++) {
+        cin >> arrayOfElements[i];
+     }
+     cout << "Array before sorting the elements : ";
+     showMergeSortArray(arrayOfElements, sizeOfArray);
+     mergeSort(arrayOfElements, 0, sizeOfArray - 1);
+     cout << "Array after sorting the elements : ";
+     showMergeSortArray(arrayOfElements, sizeOfArray);
+  }
+  
