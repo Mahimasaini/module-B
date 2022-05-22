@@ -1,0 +1,53 @@
+#include <iostream>
+using namespace std;
+  
+  void sortingArrayInMaxHeap(int array[], int sizeOfArray, int i) {
+    int largest = i;
+    int leftElement = 2 * i + 1;
+    int rightElement = 2 * i + 2;
+  
+    if (leftElement < sizeOfArray && array[leftElement] > array[largest])
+      largest = leftElement;
+  
+    if (rightElement < sizeOfArray && array[rightElement] > array[largest])
+      largest = rightElement;
+  
+    if (largest != i) {
+      swap(array[i], array[largest]);
+      sortingArrayInMaxHeap(array, sizeOfArray, largest);
+    }
+  }
+  
+  void heapSortProgram(int array[], int sizeOfArray) {
+    for (int i = sizeOfArray / 2 - 1; i >= 0; i--)
+      sortingArrayInMaxHeap(array, sizeOfArray, i);
+  
+    for (int i = sizeOfArray - 1; i >= 0; i--) {
+      swap(array[0], array[i]);
+  
+      sortingArrayInMaxHeap(array, i, 0);
+    }
+  }
+  
+  void showHeapSortArray(int array[], int sizeOfArray) {
+    for (int i = 0; i < sizeOfArray; ++i)
+      cout << array[i] << " ";
+      cout << endl ;
+  }
+  
+
+int main() {
+   int sizeOfArray;
+   cout << "Enter the number of elements in array : ";
+   cin >> sizeOfArray;
+   int array[sizeOfArray];    
+   cout << "Enter elements of array :" << endl;
+   for(int i = 0; i<sizeOfArray; i++) {
+      cin >> array[i];
+   }
+   cout << "Array before sorting the elements :  ";
+   showHeapSortArray(array, sizeOfArray);
+   heapSortProgram(array, sizeOfArray);
+   cout << "Array after sorting the elements : ";
+   showHeapSortArray(array, sizeOfArray);
+}
