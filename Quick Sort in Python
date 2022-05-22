@@ -1,0 +1,29 @@
+def rearrangingArray(array, firstElement, lastElement):
+
+  pivot = array[lastElement]
+
+  i = firstElement - 1
+ 
+  for j in range(firstElement, lastElement):
+    if array[j] <= pivot:
+      i = i + 1
+      (array[i], array[j]) = (array[j], array[i])
+
+  (array[i + 1], array[lastElement]) = (array[lastElement], array[i + 1])
+
+  return i + 1
+
+
+def quickSortProgram(array, firstElement, lastElement):
+  if firstElement < lastElement:
+    partitioningElement = rearrangingArray(array, firstElement, lastElement)
+
+    quickSortProgram(array, firstElement, partitioningElement - 1)
+    quickSortProgram(array, partitioningElement + 1, lastElement)
+
+
+array = [8, 7, 2, 1, 0, 9, 6]
+print("Array before sorting the elements :" , array)
+sizeOfArray = len(array)
+quickSortProgram(array, 0, sizeOfArray - 1)
+print("Array before sorting the elements :" , array)
