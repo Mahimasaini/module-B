@@ -1,0 +1,78 @@
+class Graph:
+
+	def __init__(self, vertices):
+		self.V = vertices
+		self.graph = []
+
+	def addEdge(self, startingVertex, endingVertex, weightOfEdge):
+		self.graph.append([startingVertex, endingVertex, weightOfEdge])
+
+	def findSet(self, parent, i):
+		if parent[i] == i:
+			return i
+		return self.findSet(parent, parent[i])
+
+	def unionOfTwoSets(self, parent, rank, set1, set2):
+		set1root = self.findSet(parent, set1)
+		set2root = self.findSet(parent, set2)
+
+		if rank[set1root] < rank[set2root]:
+			parent[set1root] = set2root
+		elif rank[set1root] > rank[set2root]:
+			parent[set2root] = set1root
+
+		else:
+			parent[set2root] = set1root
+			rank[set1root] += 1
+
+	def KruskalMinimumSpanningTree(self):
+		storeMinimumSpanningTree = []
+		sortedEdgesIndex = 0
+		minimumSpanningTreeIndex = 0
+
+		self.graph = sorted(self.graph,
+							key=lambda item: item[2])
+
+		parent = []
+		rank = []
+
+		for node in range(self.V):
+			parent.append(node)
+			rank.append(0)
+
+
+		while minimumSpanningTreeIndex < self.V - 1:
+			startingVertex, endingVertex, weightOfEdge = self.graph[i]
+			sortedEdgesIndex = sortedEdgesIndex + 1
+			x = self.findSet(parent, startingVertex)
+			y = self.findSet(parent, endingVertex)
+			if x != y:
+				minimumSpanningTreeIndex = minimumSpanningTreeIndex + 1
+				result.append([startingVertex, endingVertex, weightOfEdge])
+				self.unionOfTwoSets(parent, rank, x, y)
+
+		minimumCostOfSpanningTree = 0
+		print ("Edges :","Weight")
+		for startingVertex, endingVertex, weightOfEdge in storeMinimumSpanningTree:
+            minimumCostOfSpanningTree += weightOfEdge
+			print("%d -> %d = %d" % (startingVertex, endingVertex, weightOfEdge))
+		print("Total weight of minimum spanning tree :-" , minimumCostOfSpanningTree)      
+
+
+graph = Graph(6)
+graph.addEdge(0, 1, 4)
+graph.addEdge(0, 2, 4)
+graph.addEdge(1, 2, 2)
+graph.addEdge(1, 0, 4)
+graph.addEdge(2, 0, 4)
+graph.addEdge(2, 1, 2)
+graph.addEdge(2, 3, 3)
+graph.addEdge(2, 5, 2)
+graph.addEdge(2, 4, 4)
+graph.addEdge(3, 2, 3)
+graph.addEdge(3, 4, 3)
+graph.addEdge(4, 2, 4)
+graph.addEdge(4, 3, 3)
+graph.addEdge(5, 2, 2)
+graph.addEdge(5, 4, 3)
+graph.KruskalMinimumSpanningTree()
