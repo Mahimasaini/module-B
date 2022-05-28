@@ -1,0 +1,60 @@
+	var INF = 99999;
+	class AllPairShortestPath {
+		constructor() {
+		this.Vertex = 4;
+		}
+
+		floydWarshallProgram(graph) {
+		var distance = Array.from(Array(this.Vertex), () => new Array(this.Vertex).fill(0));
+		var i, j, k;
+
+		for (i = 0; i < this.Vertex; i++) {
+			for (j = 0; j < this.Vertex; j++) {
+			distance[i][j] = graph[i][j];
+			}
+		}
+
+		for (k = 0; k < this.Vertex; k++) {
+			
+			for (i = 0; i < this.Vertex; i++) {
+			
+			for (j = 0; j < this.Vertex; j++) {
+			
+				if (distance[i][k] + distance[k][j] < distance[i][j]) {
+				distance[i][j] = distance[i][k] + distance[k][j];
+					}
+				}
+			}
+		}
+		this.printSolutionMatrix(distance);
+		}
+
+		printSolutionMatrix(distance) {
+		console.log(
+			"Shortest distances between every pair of vertices: "
+		);
+		for (var i = 0; i < this.Vertex; ++i) {
+			for (var j = 0; j < this.Vertex; ++j) {
+			if (distance[i][j] == INF) {
+				console.log("INF ");
+			} else {
+				console.log(distance[i][j]);
+				
+			}
+			}
+			 console.log(" ");
+		}
+		}
+	}
+
+	var graph = [
+		[0, 5, INF, 10],
+		[INF, 0, 3, INF],
+		[INF, INF, 0, 1],
+		[INF, INF, INF, 0],
+	];
+
+	var findShortestPath = new AllPairShortestPath();
+	findShortestPath.floydWarshallProgram(graph);
+	
+	
