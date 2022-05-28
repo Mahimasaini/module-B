@@ -1,0 +1,47 @@
+#include <iostream>
+using namespace std;
+
+#define vertex 4
+#define INF 999
+
+void showSolutionMatrix(int matrix[][vertex]);
+
+void floydWarshallProgram(int floydGraph[][vertex]) {
+    printf("Shortest distances between every pair of vertices: \n");
+
+  int matrix[vertex][vertex], i, j, k;
+
+  for (i = 0; i < vertex; i++)
+    for (j = 0; j < vertex; j++)
+      matrix[i][j] = floydGraph[i][j];
+
+  for (k = 0; k < vertex; k++) {
+    for (i = 0; i < vertex; i++) {
+      for (j = 0; j < vertex; j++) {
+        if (matrix[i][k] + matrix[k][j] < matrix[i][j])
+          matrix[i][j] = matrix[i][k] + matrix[k][j];
+      }
+    }
+  }
+  showSolutionMatrix(matrix);
+}
+
+void showSolutionMatrix(int matrix[][vertex]) {
+  for (int i = 0; i < vertex; i++) {
+    for (int j = 0; j < vertex; j++) {
+      if (matrix[i][j] == INF)
+        printf("%4s", "INF");
+      else
+        printf("%4d", matrix[i][j]);
+    }
+    printf("\n");
+  }
+}
+
+int main() {
+  int floydGraph[vertex][vertex] =  { { 0, 5, INF, 10 },
+                        { INF, 0, 3, INF },
+                        { INF, INF, 0, 1 },
+                        { INF, INF, INF, 0 } };
+  floydWarshallProgram(floydGraph);
+}
