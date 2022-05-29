@@ -1,0 +1,18 @@
+def kadanesProgram(array,lengthOfArray):
+    
+    highestMax = array[0]
+    currentElementMax = 0
+    
+    for i in range(0, lengthOfArray):
+        currentElementMax = currentElementMax + array[i]
+        if currentElementMax < 0:
+            currentElementMax = 0
+        
+        
+        elif (highestMax < currentElementMax):
+            highestMax = currentElementMax
+            
+    return highestMax
+
+array = [ 2, 3, 4, -1, -2, 8, 5, 6]
+print("The maximum sum of elements of array is : " ,kadanesProgram(array,len(array)))
