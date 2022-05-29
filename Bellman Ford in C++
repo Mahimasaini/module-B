@@ -1,0 +1,97 @@
+#include <iostream>
+    #include <stdlib.h>
+    #include <string.h>
+    #include <limits.h>
+    using namespace std;
+         
+        struct Edge
+        {
+            int sourceVertex, destinationVertex, weightOfEdge;
+        };
+         
+        struct Graph
+        {
+            int Vertices, Edges;
+            struct Edge* edge;
+        };
+         
+        struct Graph* createGraph(int Vertices, int Edges)
+        {
+            struct Graph* graph = (struct Graph*) malloc( sizeof(struct Graph));
+            graph->Vertices = Vertices;  
+            graph->Edges = Edges;
+         
+            graph->edge = (struct Edge*) malloc( graph->Edges * sizeof( struct Edge ) );
+            return graph;
+        }
+         
+        void showShortestPath(int distance[], int noOfVetices)
+        {
+            int vertex;
+            for (vertex = 0; vertex < noOfVetices; ++vertex){
+             cout<<"The shortest distance of vertex "<<vertex<<" from the source vertex 0 is "<<distance[vertex]<<endl; 
+    
+        }
+        }
+         
+        void BellmanFordProgram(struct Graph* graph, int sourceVertex)
+        {
+            int Vertices = graph->Vertices;
+            int Edges = graph->Edges;
+            int StoreDistance[Vertices];
+            int i,j;
+         
+            for (i = 0; i < Vertices; i++)
+                StoreDistance[i] = INT_MAX;
+            StoreDistance[sourceVertex] = 0;
+         
+            for (i = 1; i <= Vertices-1; i++)
+            {
+                for (j = 0; j < Edges; j++)
+                {
+                    int u = graph->edge[j].sourceVertex;
+                    int v = graph->edge[j].destinationVertex;
+                    int weightOfEdge = graph->edge[j].weightOfEdge;
+                    if (StoreDistance[u] + weightOfEdge < StoreDistance[v])
+                        StoreDistance[v] = StoreDistance[u] + weightOfEdge;
+                }
+            }
+         
+            for (i = 0; i < Edges; i++)
+            {
+                int u = graph->edge[i].sourceVertex;
+                int v = graph->edge[i].destinationVertex;
+                int weightOfEdge = graph->edge[i].weightOfEdge;
+                if (StoreDistance[u] + weightOfEdge < StoreDistance[v])
+                    cout<<"\nThis graph contains negative edge cycle\n";
+            }
+         
+            showShortestPath(StoreDistance, Vertices);
+            return;
+        }
+         
+        int main()
+        {
+            int Vertices,Edges,SourceVertex;  
+         
+        cout<<"Enter no. of vertices you wants in graph : ";
+            cin>>Vertices;
+        cout<<"Enter no. of edges you wants in graph : ";
+            cin>>Edges;
+        cout<<"Enter the source vertex : ";
+           cin>>SourceVertex;
+         
+            struct Graph* graph = createGraph(Vertices, Edges);   
+         
+            int i;
+            for(i=0;i<Edges;i++){
+                cout<<"\nEnter Source Vertex , Destination Vertex and Weight of Edge " <<i+1 <<" : ";
+                cin>>graph->edge[i].sourceVertex;
+                cin>>graph->edge[i].destinationVertex;
+                cin>>graph->edge[i].weightOfEdge;
+            }
+         
+            BellmanFordProgram(graph, SourceVertex);
+            return 0;
+        }
+        
