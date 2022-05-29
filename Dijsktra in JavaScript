@@ -1,0 +1,71 @@
+
+let Vertices = 9;
+
+function findMinimumDistance(distance,checkVisitedShortestVertex)
+{
+	let min = Number.MAX_VALUE;
+	let minIndexValue = -1;
+	
+	for(let vertex = 0; vertex < Vertices; vertex++)
+	{
+		if (checkVisitedShortestVertex[vertex] == false && distance[vertex] <= min)
+		{
+			min = distance[vertex];
+			minIndexValue = vertex;
+		}
+	}
+	return minIndexValue;
+}
+
+function showShortestDistance(distance)
+{
+	for(let vertex = 0; vertex < Vertices; vertex++)
+	{
+        console.log("The shortest distance of  vertex", vertex + " from the source vertex 0 is : " +
+        distance[vertex] );
+	}
+}
+
+function dijkstraProgram(graph, sourceVertex)
+{
+	let distance = new Array(Vertices);
+	let checkVisitedShortestVertex = new Array(Vertices);
+	
+	for(let vertex = 0; vertex < Vertices; vertex++)
+	{
+		distance[vertex] = Number.MAX_VALUE;
+		checkVisitedShortestVertex[vertex] = false;
+	}
+
+	distance[sourceVertex] = 0;
+	
+	for(let count = 0; count < Vertices - 1; count++)
+	{
+		let u = findMinimumDistance(distance, checkVisitedShortestVertex);
+		checkVisitedShortestVertex[u] = true;
+		for(let vertex = 0; vertex < Vertices; vertex++)
+		{
+			if (!checkVisitedShortestVertex[vertex] && graph[u][vertex] != 0 &&
+				distance[u] != Number.MAX_VALUE &&
+				distance[u] + graph[u][vertex] < distance[vertex])
+			{
+				distance[vertex] = distance[u] + graph[u][vertex];
+			}
+		}
+	}
+	
+	showShortestDistance(distance);
+}
+
+let graph = [ [ 0, 4, 0, 0, 0, 0, 0, 8, 0 ],
+			[ 4, 0, 8, 0, 0, 0, 0, 11, 0 ],
+			[ 0, 8, 0, 7, 0, 4, 0, 0, 2 ],
+			[ 0, 0, 7, 0, 9, 14, 0, 0, 0],
+			[ 0, 0, 0, 9, 0, 10, 0, 0, 0 ],
+			[ 0, 0, 4, 14, 10, 0, 2, 0, 0],
+			[ 0, 0, 0, 0, 0, 2, 0, 1, 6 ],
+			[ 8, 11, 0, 0, 0, 0, 1, 0, 7 ],
+			[ 0, 0, 2, 0, 0, 0, 6, 7, 0 ] ]
+dijkstraProgram(graph, 0);
+
+
