@@ -1,0 +1,69 @@
+from collections import deque
+ROW = 5
+COL = 5
+
+class Cell:
+	def __init__(self,storeInRow: int, storeInCol: int):
+		self.storeInRow = storeInRow
+		self.storeInCol = storeInCol
+
+class queueNode:
+	def __init__(self,coordinates: Cell, distanceFromSource: int):
+		self.coordinates = coordinates 
+		self.distanceFromSource = distanceFromSource 
+
+def checkValidCell(row: int, col: int):
+	return ((row >= 0) and (row < ROW) and (col >= 0) and (col < COL))
+
+rowNum = [-1, 0, 0, 1]
+colNum = [0, -1, 1, 0]
+
+def LeeProgramToFindShortestPath(matrix, sourceCell: Cell, destinationCell: Cell):
+	
+	if matrix[sourceCell.storeInRow][sourceCell.storeInCol]!=1 or matrix[destinationCell.storeInRow][destinationCell.storeInCol]!=1:
+		return -1
+	
+	visited = [[False for i in range(COL)] 
+					for j in range(ROW)]
+	
+	visited[sourceCell.storeInRow][sourceCell.storeInCol] = True
+	
+	q = deque()
+	
+	s = queueNode(sourceCell,0)
+	q.append(s) 
+	
+	while q:
+		current = q.popleft() 
+		coordinates = current.coordinates
+		if coordinates.storeInRow == destinationCell.storeInRow and coordinates.storeInCol == destinationCell.storeInCol:
+			return current.distanceFromSource
+		
+		for i in range(4):
+			row = coordinates.storeInRow + rowNum[i]
+			col = coordinates.storeInCol + colNum[i]
+			
+			if (checkValidCell(row,col) and
+			matrix[row][col] == 1 and
+				not visited[row][col]):
+				visited[row][col] = True
+				AdjacentCell = queueNode(Cell(row,col),
+									current.distanceFromSource+1)
+				q.append(AdjacentCell)
+	
+	return -1
+
+matrix = [ [ 1, 0, 1, 1, 1 ],
+	[ 1, 0, 1, 0, 1 ], 
+	[ 1, 1, 1, 0, 1 ], 
+	[ 0, 0, 0, 0, 1 ], 
+	[ 1, 1, 1, 0, 1 ]]
+sourceCell = Cell(0,0)
+destinationCell = Cell(2,1)
+	
+distanceFromSource = LeeProgramToFindShortestPath(matrix,sourceCell,destinationCell)
+	
+if distanceFromSource!=-1:
+		print("Length of the Shortest Path is",distanceFromSource)
+else:
+		print("Shortest Path doesn't exist")
