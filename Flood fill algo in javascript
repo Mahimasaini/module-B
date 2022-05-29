@@ -1,0 +1,76 @@
+function isGivenPixelValid(screen,rowOfDisplay,colOfDisplay x, y, previousColor, newColor)
+{
+    if(x<0 || x>=rowOfDisplay || y<0 || y>= colOfDisplay || screen[x][y]!= previousColor
+    || screen[x][y]== newColor)
+        return false;
+    return true;
+}
+
+function floodFillProgram(screen,rowOfDisplay,colOfDisplay, x, y, previousColor, newColor)
+{
+    let queue = [];
+    queue.push([x, y]);
+
+    screen[x][y] = newColor;
+
+    while(queue.length > 0)
+    {
+        currentPixel = queue[queue.length - 1];
+        queue.pop();
+
+        let posX = currentPixel[0];
+        let posY = currentPixel[1];
+
+        if(isGivenPixelValid(screen,rowOfDisplay,colOfDisplay ,posX + 1, posY, previousColor, newColor))
+        {
+            screen[posX + 1][posY] = newColor;
+            queue.push([posX + 1, posY]);
+        }
+
+        if(isGivenPixelValid(screen,rowOfDisplay,colOfDisplay ,posX-1, posY, previousColor, newColor))
+        {
+            screen[posX-1][posY]= newColor;
+            queue.push([posX-1, posY]);
+        }
+
+        if(isGivenPixelValid(screen,rowOfDisplay,colOfDisplay ,posX, posY + 1, previousColor, newColor))
+        {
+            screen[posX][posY + 1]= newColor;
+            queue.push([posX, posY + 1]);
+        }
+
+        if(isGivenPixelValid(screen,rowOfDisplay,colOfDisplay ,posX, posY-1, previousColor, newColor))
+        {
+            screen[posX][posY-1]= newColor;
+            queue.push([posX, posY-1]);
+        }
+    }
+}
+
+let screen =[
+[1, 1, 1, 1, 1, 1, 1, 1],
+[1, 1, 1, 1, 1, 1, 0, 0],
+[1, 0, 0, 1, 1, 0, 1, 1],
+[1, 2, 2, 2, 2, 0, 1, 0],
+[1, 1, 1, 2, 2, 0, 1, 0],
+[1, 1, 1, 2, 2, 2, 2, 0],
+[1, 1, 1, 1, 1, 2, 1, 1],
+[1, 1, 1, 1, 1, 2, 2, 1]];
+
+let rowOfDisplay = screen.length;
+let colOfDisplay = screen[0].length;
+let x = 4;
+let y = 4;
+let previousColor = screen[x][y];
+let newColor = 3;
+
+floodFillProgram(screen, rowOfDisplay,colOfDisplay, x, y, previousColor, newColor);
+
+for(let i = 0; i < rowOfDisplay; i++){
+    for(let j = 0; j < colOfDisplay; j++){
+        console.log(screen[i][j]);
+    }
+console.log(" ");
+}
+    
+
