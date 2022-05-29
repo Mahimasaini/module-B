@@ -1,0 +1,87 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ROW 5
+#define COL 5
+
+struct Cell{
+	int storeInRow;
+	int storeInCol;
+};
+
+struct queueNode
+{
+	Cell cordinates;  
+	int distanceFromSource; 
+};
+
+bool checkValidCell(int row, int col)
+{
+	return ((row >= 0) && (row < ROW) &&	(col >= 0) && (col < COL));
+}
+
+int rowNum[] = {-1, 0, 0, 1};
+int colNum[] = {0, -1, 1, 0};
+
+int LeeProgramToFindShortestPath(int matrix[][COL], Cell sourceCell, Cell destinationCell)
+{
+	if (!matrix[sourceCell.storeInRow][sourceCell.storeInCol] || !matrix[destinationCell.storeInRow][destinationCell.storeInCol])
+		return -1;
+
+	bool visited[ROW][COL];
+	memset(visited, false, sizeof visited);
+	
+	visited[sourceCell.storeInRow][sourceCell.storeInCol] = true;
+
+	queue<queueNode> q;
+	
+	queueNode s = {sourceCell, 0};
+	q.push(s); 
+
+	while (!q.empty())
+	{
+		queueNode current = q.front();
+		Cell cordinates = current.cordinates;
+
+		if (cordinates.storeInRow == destinationCell.storeInRow && cordinates.storeInCol == destinationCell.storeInCol)
+			return current.distanceFromSource;
+		q.pop();
+
+		for (int i = 0; i < 4; i++)
+		{
+			int row = cordinates.storeInRow + rowNum[i];
+			int col = cordinates.storeInCol + colNum[i];
+			
+			if (checkValidCell(row, col) && matrix[row][col] && 
+			!visited[row][col])
+			{
+				visited[row][col] = true;
+				queueNode Adjcell = { {row, col},current.distanceFromSource + 1 };
+				q.push(Adjcell);
+			}
+		}
+	}
+	return -1;
+}
+
+int main()
+{
+	int matrix[ROW][COL] =
+	{
+		{ 1, 0, 1, 1, 1 },
+		{ 1, 0, 1, 0, 1 },
+		{ 1, 1, 1, 0, 1 },
+		{ 0, 0, 0, 0, 1 },
+		{ 1, 1, 1, 0, 1 }
+    };
+    
+	Cell sourceCell = {0, 0};
+	Cell destinationCell = {2, 1};
+
+	int destination = LeeProgramToFindShortestPath(matrix, sourceCell, destinationCell);
+
+	if (destination != -1)
+		cout<< "Length of the Shortest Path is "<<destination ;
+	else
+		cout<< "Shortest Path doesn't exist";
+	return 0;
+}
