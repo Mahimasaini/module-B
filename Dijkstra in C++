@@ -40,12 +40,10 @@ using namespace std;
                     distance[k]=distance[minimumDistance]+graph[minimumDistance][k];
             }
         }
-        cout<<"Vertex:\t\tDistance from source vertex:"<<endl;
         for(int k = 0; k<6; k++)                      
         { 
             char str=65+k; 
-            cout<<str<<"\t\t\t"<<distance[k]<<endl;
-        }
+            cout<<"The shortest distance of vertex "<<str<<" from the source vertex A is "<<distance[k]<<endl;        }
     }
     
     int main()
