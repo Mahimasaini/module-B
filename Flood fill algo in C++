@@ -1,0 +1,93 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isGivenPixelValid(int screen[][8], int rowOfDisplay, int colOfDisplay ,int x, int y, int previousColor, int newColor)
+{
+	if(x < 0 || x >= rowOfDisplay || y < 0 || y >= colOfDisplay || screen[x][y] != previousColor
+	|| screen[x][y]== newColor)
+		return false;
+	return true;
+}
+
+void floodFillProgram(int screen[][8], int rowOfDisplay, int colOfDisplay, int x, int y, int previousColor, int newColor)
+{
+	vector<pair<int,int>> queue;
+	pair<int,int> p(x,y);
+	queue.push_back(p);
+
+	screen[x][y] = newColor;
+
+	while(queue.size() > 0)
+	{
+		pair<int,int> currentPixel = queue[queue.size() - 1];
+		queue.pop_back();
+
+		int posX = currentPixel.first;
+		int posY = currentPixel.second;
+
+		if(isGivenPixelValid(screen, rowOfDisplay,colOfDisplay ,posX + 1, posY, previousColor, newColor))
+		{
+			screen[posX + 1][posY] = newColor;
+			p.first = posX + 1;
+			p.second = posY;
+			queue.push_back(p);
+		}
+
+		if(isGivenPixelValid(screen, rowOfDisplay,colOfDisplay, posX-1, posY, previousColor, newColor))
+		{
+			screen[posX-1][posY]= newColor;
+			p.first = posX-1;
+			p.second = posY;
+			queue.push_back(p);
+		}
+
+		if(isGivenPixelValid(screen, rowOfDisplay,colOfDisplay ,posX, posY + 1, previousColor, newColor))
+		{
+			screen[posX][posY + 1]= newColor;
+			p.first = posX;
+			p.second = posY + 1;
+			queue.push_back(p);
+		}
+
+		if(isGivenPixelValid(screen, rowOfDisplay,colOfDisplay, posX, posY-1, previousColor, newColor))
+		{
+			screen[posX][posY-1]= newColor;
+			p.first = posX;
+			p.second = posY-1;
+			queue.push_back(p);
+		}
+	}
+}
+	
+int main()
+{
+	int screen[][8] ={
+	{1, 1, 1, 1, 1, 1, 1, 1},
+	{1, 1, 1, 1, 1, 1, 0, 0},
+	{1, 0, 0, 1, 1, 0, 1, 1},
+	{1, 2, 2, 2, 2, 0, 1, 0},
+	{1, 1, 1, 2, 2, 0, 1, 0},
+	{1, 1, 1, 2, 2, 2, 2, 0},
+	{1, 1, 1, 1, 1, 2, 1, 1},
+	{1, 1, 1, 1, 1, 2, 2, 1}};
+	
+	int rowOfDisplay = 8;
+	int colOfDisplay = 8;
+	int x = 4;
+	int y = 4;
+	int previousColor = screen[x][y];
+	int newColor = 3;
+
+	floodFillProgram(screen, rowOfDisplay, colOfDisplay, x, y, previousColor, newColor);
+	
+	for(int i = 0; i < rowOfDisplay; i++)
+	{
+		for(int j = 0; j < colOfDisplay; j++)
+		{
+			cout << screen[i][j] << " ";
+		}
+		cout << endl;
+	}
+	return 0;
+}
+
