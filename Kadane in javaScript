@@ -1,0 +1,23 @@
+function kadanesProgram(array, lengthOfArray)
+{
+	var max = Math.pow(2, 53)
+	var highestMax = -max - 1
+	var currentElementMax = 0
+	
+	for (var i = 0; i < lengthOfArray; i++)
+	{
+		currentElementMax = currentElementMax + array[i]
+		if (highestMax < currentElementMax)
+			highestMax = currentElementMax
+
+		if (currentElementMax < 0)
+			currentElementMax = 0
+	}
+	return highestMax
+}
+
+var array = [ 2, 3, 4, -1, -2, 8, 5, 6 ]
+console.log("The maximum sum of elements of array is : ",
+			kadanesProgram(array, array.length))
+
+
