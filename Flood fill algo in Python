@@ -1,0 +1,70 @@
+def isGivenPixelValid(screen, rowOfDisplay, colOfDisplay, x, y, previousColor, newColor):
+	if x<0 or x>= rowOfDisplay\
+	or y<0 or y>= colOfDisplay or\
+	screen[x][y]!= previousColor\
+	or screen[x][y]== newColor:
+		return False
+	return True
+
+def floodFillProgram(screen,
+			rowOfDisplay, colOfDisplay, x,
+			y, previousColor, newColor):
+	queue = []
+	
+	queue.append([x, y])
+	screen[x][y] = newColor
+
+	while queue:
+		currentPixel = queue.pop()
+		posX = currentPixel[0]
+		posY = currentPixel[1]
+		if isGivenPixelValid(screen, rowOfDisplay, colOfDisplay,
+				posX + 1, posY,
+						previousColor, newColor):
+			
+			screen[posX + 1][posY] = newColor
+			queue.append([posX + 1, posY])
+		
+		if isGivenPixelValid(screen, rowOfDisplay, colOfDisplay,
+					posX-1, posY,
+						previousColor, newColor):
+			screen[posX-1][posY]= newColor
+			queue.append([posX-1, posY])
+		
+		if isGivenPixelValid(screen, rowOfDisplay, colOfDisplay,
+				posX, posY + 1,
+						previousColor, newColor):
+			screen[posX][posY + 1]= newColor
+			queue.append([posX, posY + 1])
+		
+		if isGivenPixelValid(screen, rowOfDisplay, colOfDisplay,
+					posX, posY-1,
+						previousColor, newColor):
+			screen[posX][posY-1]= newColor
+			queue.append([posX, posY-1])
+
+
+
+screen =[
+[1, 1, 1, 1, 1, 1, 1, 1],
+[1, 1, 1, 1, 1, 1, 0, 0],
+[1, 0, 0, 1, 1, 0, 1, 1],
+[1, 2, 2, 2, 2, 0, 1, 0],
+[1, 1, 1, 2, 2, 0, 1, 0],
+[1, 1, 1, 2, 2, 2, 2, 0],
+[1, 1, 1, 1, 1, 2, 1, 1],
+[1, 1, 1, 1, 1, 2, 2, 1],
+	]
+	
+rowOfDisplay = len(screen)
+colOfDisplay = len(screen[0])
+x = 4
+y = 4
+previousColor = screen[x][y]
+newColor = 3
+
+floodFillProgram(screen, rowOfDisplay, colOfDisplay, x, y, previousColor, newColor)
+for i in range(rowOfDisplay):
+	for j in range(colOfDisplay):
+		print(screen[i][j], end =' ')
+	print()
