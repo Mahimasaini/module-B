@@ -1,0 +1,40 @@
+class Graph:
+
+    def __init__(self, vertices):
+        self.M = vertices   
+        self.graph = []     
+
+
+    def addEdgeToGraph(self, startingVertex, endingVertex, weightOfEdge):
+        self.graph.append([startingVertex, endingVertex, weightOfEdge])
+
+
+    def showShortestPath(self, distance):
+        for k in range(self.M):
+            print("The shortest distance of vertex" ,k,"from the source vertex 0 is",distance[k] )
+
+    def BellmanFordProgram(self, sourceVertex):
+        distance = [float("INF")] * self.M
+        distance[sourceVertex] = 0
+
+        for _ in range(self.M - 1):
+            for startingVertex, endingVertex, weightOfEdge in self.graph:
+                if distance[startingVertex] != float("INF") and distance[startingVertex] + weightOfEdge < distance[endingVertex]:
+                    distance[endingVertex] = distance[startingVertex] + weightOfEdge
+
+        for startingVertex, endingVertex, weightOfEdge in self.graph:
+            if distance[startingVertex] != float("INF") and distance[startingVertex] + weightOfEdge < distance[endingVertex]:
+                print("Graph contains negative weight cycle")
+                return
+
+        self.showShortestPath(distance)
+
+graph = Graph(5)
+graph.addEdgeToGraph(0, 1, 2)
+graph.addEdgeToGraph(0, 2, 4)
+graph.addEdgeToGraph(1, 3, 2)
+graph.addEdgeToGraph(2, 4, 3)
+graph.addEdgeToGraph(2, 3, 4)
+graph.addEdgeToGraph(4, 3, -5)
+
+graph.BellmanFordProgram(0)
