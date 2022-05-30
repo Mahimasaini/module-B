@@ -1,0 +1,106 @@
+
+#include<iostream>
+#include <algorithm>
+#include<vector>
+using namespace std;
+
+
+class edge{
+    public:
+    int source;
+    int destination;
+    int weight;
+
+    edge(){
+    }
+
+    edge(int sourceVertex,int destinationVertex,int weightOfEdge){
+        source=sourceVertex;
+        destination=destinationVertex;
+        weight=weightOfEdge;
+    }
+
+};
+
+
+bool compareEdges(edge e1,edge e2){
+    return e1.weight<e2.weight;
+}
+
+
+int findParent(int i,int* parent ){
+    if(parent[i]==i)
+        return i;
+    return findParent(parent[i],parent);
+}
+
+
+class graph{
+    public:
+    int e,n;
+    edge* v;
+
+    graph(int vertices,int edges){
+        this->n=vertices;
+        this->e=edges;
+        v=new edge[edges];
+        for(int i=0;i<edges;i++)
+        {
+            int sourceVertex,destinationVertex,weightOfEdge;
+            cout<<"Enter vertices and weight of edge "<<i+1<<" :	";
+            cin>>sourceVertex>>destinationVertex>>weightOfEdge;
+            edge e(sourceVertex,destinationVertex,weightOfEdge);
+            v[i]=e;
+        }
+    }
+
+    edge* unionfind(){
+        int* parent=new int[n];
+        for(int i=0;i<n;i++){
+            parent[i]=i;
+        }
+
+        sort(v,v+e,compareEdges);
+        edge* output;
+        output=new edge[n-1];
+        int count=0,i=0;
+
+        while(count!=n-1){
+            edge c=v[i];
+            int sourceParent=findParent(v[i].source,parent);
+            int destParent=findParent(v[i].destination,parent);
+
+            if(sourceParent!=destParent){
+                output[count]=c;
+                parent[sourceParent]=destParent;
+                count++;
+            }
+            i++;
+        }
+
+        int sum=0;
+        cout<<endl<<"Minimum Spanning Tree -\n";
+
+       for(int i=0;i<n-1;i++){
+           cout<<output[i].source<<"	"<<output[i].destination<<"	"<<output[i].weight<<endl;
+           sum+=output[i].weight;
+
+       }
+       cout<<"\nTotal weight of minimum spanning tree is : "<<sum;
+       return output;
+    }
+
+};
+
+int main(){
+    int vertices,edges;
+    cout<<"Enter no. of vertices you wants in graph :";
+    cin>>vertices;
+
+    cout<<"Enter no. of edges you wants in graph :";
+    cin>>edges;
+
+    graph g(vertices,edges);
+    edge* mst=g.unionfind();
+
+}
