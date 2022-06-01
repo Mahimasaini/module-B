@@ -1,0 +1,42 @@
+from collections import defaultdict
+
+class Graph:
+	def __init__(self, vertices):
+		self.graph = defaultdict(list) 
+		self.V = vertices
+
+	def addEdge(self, u, v):
+		self.graph[u].append(v)
+
+	def recursivelySortingVertices(self, v, visitedVertex, stack):
+
+		visitedVertex[v] = True
+
+		for i in self.graph[v]:
+			if visitedVertex[i] == False:
+				self.recursivelySortingVertices(i, visitedVertex, stack)
+
+		stack.append(v)
+
+	def topologicalSortProgram(self):
+		visitedVertex = [False]*self.V
+		stack = []
+
+		for i in range(self.V):
+			if visitedVertex[i] == False:
+				self.recursivelySortingVertices(i, visitedVertex, stack)
+
+		print(stack[::-1]) 
+
+
+graph = Graph(6)
+graph.addEdge(5, 2)
+graph.addEdge(5, 0)
+graph.addEdge(4, 0)
+graph.addEdge(4, 1)
+graph.addEdge(2, 3)
+graph.addEdge(3, 1)
+
+print ("The Topological Sorting of the given graph is : ")
+graph.topologicalSortProgram()
+
