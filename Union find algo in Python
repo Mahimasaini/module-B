@@ -1,0 +1,47 @@
+from collections import defaultdict
+
+class Graph:
+
+	def __init__(self,vertices):
+		self.V= vertices 
+		self.graph = defaultdict(list) 
+
+
+	def addEdge(self,startingVertex,endingVertex):
+		self.graph[startingVertex].append(endingVertex)
+
+	def findingTheSubset(self, parent,i):
+		if parent[i] == -1:
+			return i
+		if parent[i]!= -1:
+			return self.findingTheSubset(parent,parent[i])
+
+	def UnionOfTwoSets(self,parent,x,y):
+		parent[x] = y
+
+
+	def isGraphContainsCycle(self):
+		
+		parent = [-1]*(self.V)
+
+		for i in self.graph:
+			for j in self.graph[i]:
+				x = self.findingTheSubset(parent, i)
+				y = self.findingTheSubset(parent, j)
+				if x == y:
+					return True
+				self.UnionOfTwoSets(parent,x,y)
+
+
+graph = Graph(5)
+graph.addEdge(1, 2)
+graph.addEdge(2, 4)
+graph.addEdge(3, 2)
+graph.addEdge(4, 3)
+graph.addEdge(3, 4)
+graph.addEdge(3, 5)
+
+if graph.isGraphContainsCycle():
+	print ("The following graph contains the cycle.")
+else :
+	print ("The following graph does not contain any cycle.")
