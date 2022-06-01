@@ -1,0 +1,78 @@
+    var Vertices, Edges;
+    var edge;
+    
+    class Edge
+    {
+        constructor()
+        {
+            this.sourceVertex = 0;
+            this.destinationVertex = 0;
+        }
+    };
+    
+    function initialize(v,e)
+    {
+        Vertices = v;
+        Edges = e;
+        edge = Array.from(Array(Edges), () => Array());
+    }
+
+    function findingTheSubset(parent, i)
+    {
+        if (parent[i] == -1)
+            return i;
+            
+        return findingTheSubset(parent,
+                    parent[i]);
+    }
+  
+    function UnionOfTwoSets(parent, x, y)
+    {
+        parent[x] = y;
+    }
+
+    function isGraphContainsCycle()
+    {
+        var parent = Array(Vertices).fill(0);
+        for(var i = 0; i < Vertices; ++i)
+            parent[i] =- 1;
+        
+        for (var i = 0; i < Edges; ++i)
+        {
+            var x = findingTheSubset(parent,edge[i].sourceVertex);
+            var y = findingTheSubset(parent, edge[i].destinationVertex);
+                       
+            if (x == y)
+                return 1;
+            UnionOfTwoSets(parent, x, y);
+        }
+        return 0;
+    }
+    
+
+    var Vertices = 5, Edges = 6;
+    initialize(Vertices, Edges);
+    
+    edge[0].sourceVertex = 1;
+    edge[0].destinationVertex = 2;
+    
+    edge[1].sourceVertex = 2;
+    edge[1].destinationVertex = 4;
+    
+    edge[2].sourceVertex = 3;
+    edge[2].destinationVertex = 2;
+
+    edge[3].sourceVertex = 4;
+    edge[3].destinationVertex = 3;
+
+    edge[4].sourceVertex = 3;
+    edge[4].destinationVertex = 4;
+
+    edge[5].sourceVertex = 3;
+    edge[5].destinationVertex = 5;
+    
+    if (isGraphContainsCycle() == 1)
+        console.log("The following graph contains the cycle.");
+    else
+        console.log("The following graph does not contain any cycle.");
+ 
