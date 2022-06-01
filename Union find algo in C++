@@ -1,0 +1,77 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Edge
+{
+public:
+	int source, destination;
+};
+
+class Graph
+{
+public:
+	int vertices, Edges;
+	Edge* edge;
+};
+
+Graph* createGraph(int vertices, int Edges)
+{
+	Graph* graph = new Graph();
+	graph->vertices = vertices;
+	graph->Edges = Edges;
+
+	graph->edge = new Edge[graph->Edges * sizeof(Edge)];
+	return graph;
+}
+
+int findingTheSubset(int parent[], int i)
+{
+	if (parent[i] == -1)
+		return i;
+	return findingTheSubset(parent, parent[i]);
+}
+
+void UnionOfTwoSets(int parent[], int x, int y)
+{
+	parent[x] = y;
+}
+
+int isGraphContainsCycle(Graph* graph)
+{
+	int* parent = new int[graph->vertices * sizeof(int)];
+	memset(parent, -1, sizeof(int) * graph->vertices);
+
+	for (int i = 0; i < graph->Edges; ++i) {
+		int x = findingTheSubset(parent, graph->edge[i].source);
+		int y = findingTheSubset(parent, graph->edge[i].destination);
+
+		if (x == y)
+			return 1;
+
+		UnionOfTwoSets(parent, x, y);
+	}
+	return 0;
+}
+
+int main()
+{
+	int vertices = 3, Edges= 3;
+	Graph* graph = createGraph(vertices, Edges);
+
+	graph->edge[0].source = 0;
+	graph->edge[0].destination = 1;
+
+	graph->edge[1].source = 1;
+	graph->edge[1].destination = 2;
+
+	graph->edge[2].source = 0;
+	graph->edge[2].destination = 2;
+
+	if (isGraphContainsCycle(graph))
+		cout << "The following graph contains the cycle.";
+	else
+		cout << "The following graph does not contain any cycle.";
+
+	return 0;
+}
+
