@@ -1,0 +1,35 @@
+class Node:
+	def __init__(self, d):
+		self.data = d
+		self.nextValue = None
+
+front = None
+
+def isLoopExistInLinkedList(front):
+	slowPointer = front
+	fastPointer = front
+
+	while (slowPointer != None	and fastPointer != None	and fastPointer.nextValue != None):
+		fastPointer = fastPointer.nextValue.nextValue
+		if (slowPointer == fastPointer):
+			return 1
+
+	return 0
+
+front = Node(10)
+front.nextValue = Node(20)
+front.nextValue.nextValue = Node(30)
+front.nextValue.nextValue.nextValue = Node(40)
+front.nextValue.nextValue.nextValue.nextValue = Node(50)
+
+temp = front
+while (temp.nextValue != None):
+	temp = temp.nextValue
+
+temp.nextValue = front
+
+if (isLoopExistInLinkedList(front)):
+	print("There is loop exists in the given linked list.")
+else:
+	print("There is no loop exists in the given linked list.")
+
