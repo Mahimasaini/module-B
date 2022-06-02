@@ -1,0 +1,50 @@
+class Graph {
+    constructor() {
+        this.adjacencyList = {};
+    }
+    addVertex(vertex) {
+        if (!this.adjacencyList[vertex]) {
+            this.adjacencyList[vertex] = [];
+        }
+    }
+    addEdge(startingVertex, endingVertex) {
+        this.adjacencyList[startingVertex].push(endingVertex);
+    }
+}
+
+const graph = function() {
+    const graph = new Graph();
+    ["A", "B", "C", "D", "E"].forEach((v) => graph.addVertex(v));
+    graph.addEdge("A", "B");
+    graph.addEdge("A", "C");
+    graph.addEdge("B", "D");
+    graph.addEdge("C", "D");
+    graph.addEdge("D", "E");
+    return graph;
+}();
+
+function recursivelySortingVertices(vertex, length, visitedVertex, assignTopologicalNum) {
+    visitedVertex[vertex] = true;
+    const finalAdjacencyVertexList = graph.adjacencyList[vertex];
+    for (const vertex of finalAdjacencyVertexList) {
+        if (!visitedVertex[vertex]) {
+            length = recursivelySortingVertices(vertex, length, visitedVertex, assignTopologicalNum);
+        }
+    }
+    assignTopologicalNum[vertex] = length;
+    return length - 1;
+}
+function topologicalSortProgram(graph) {
+    const vertices = Object.keys(graph.adjacencyList);
+    const visitedVertex = {};
+    const assignTopologicalNum = {};
+    let length = vertices.length - 1;
+    for (const vertex of vertices) {
+        if (!visitedVertex[vertex]) {
+            length = recursivelySortingVertices(vertex, length, visitedVertex, assignTopologicalNum)
+        }
+    }
+    return assignTopologicalNum;
+}
+console.log("The Topological Sorting of the given graph is : " );
+console.log(topologicalSortProgram(graph));
