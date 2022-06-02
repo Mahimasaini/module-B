@@ -1,0 +1,44 @@
+
+		class Node
+		{
+			constructor(d)
+			{
+				this.data = d;
+				this.nextValue = null;
+			}
+		}
+
+		let front = null;
+		function isLoopExistInLinkedList(front) {
+			let slowPointer = front;
+			let fastPointer = front;
+
+			while (slowPointer != null
+				&& fastPointer != null
+				&& fastPointer.nextValue != null) {
+				slowPointer = slowPointer.nextValue;
+				fastPointer = fastPointer.nextValue.nextValue;
+				if (slowPointer == fastPointer)
+					return 1;
+			}
+			return 0;
+		}
+
+front =new Node(10)
+front.nextValue =new Node(20)
+front.nextValue.nextValue =new Node(30)
+front.nextValue.nextValue.nextValue =new Node(40)
+front.nextValue.nextValue.nextValue.nextValue =new Node(50)
+
+	let temp = front;
+	while (temp.nextValue != null)
+    	temp = temp.nextValue
+
+		temp.nextValue = front;
+
+		if (isLoopExistInLinkedList(front))
+			console.log("There is loop exists in the given linked list.");
+		else
+		console.log("There is no loop exists in the given linked list.");
+
+
