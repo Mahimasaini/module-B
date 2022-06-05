@@ -7,6 +7,9 @@ def createStack():
 def isStackEmpty(stack):
 	return len(stack) == 0
 
+def printStack(stack):
+        print(stack)
+
 def pushInStack(stack, element):
 	stack.append(element)
 	print(element + " is pushed in the stack. ")
@@ -26,5 +29,7 @@ stack = createStack()
 pushInStack(stack, str(10))
 pushInStack(stack, str(20))
 pushInStack(stack, str(30))
+print("\nElements of stack are : ")
+printStack(stack)
 print("\n" + popFromStack(stack) + " is the popped element from the stack.")
 print("\n" + peekInStack(stack) + " is the peek element of the  stack.")
