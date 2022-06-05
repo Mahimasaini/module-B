@@ -1,0 +1,81 @@
+
+let ALPHABET_SIZE = 26;
+
+class DigitalTreeOrTrieTree
+{
+	constructor()
+	{
+		this.isEndOfWord = false;
+		this.children = new Array(ALPHABET_SIZE);
+		for (let i = 0; i < ALPHABET_SIZE; i++)
+			this.children[i] = null;
+	}
+}
+
+let root;
+
+function insert(trieWord)
+{
+	let level;
+		let length = trieWord.length;
+		let index;
+	
+		let word = root;
+	
+		for (level = 0; level < length; level++)
+		{
+			index = trieWord[level].charCodeAt(0) - 'a'.charCodeAt(0);
+			if (word.children[index] == null)
+				word.children[index] = new DigitalTreeOrTrieTree();
+	
+			word = word.children[index];
+		}
+	
+		word.isEndOfWord = true;
+}
+
+function search(trieWord)
+{
+	let level;
+		let length = trieWord.length;
+		let index;
+		let word = root;
+	
+		for (level = 0; level < length; level++)
+		{
+			index = trieWord[level].charCodeAt(0) - 'a'.charCodeAt(0);
+	
+			if (word.children[index] == null)
+				return false;
+	
+			word = word.children[index];
+		}
+	
+		return (word.isEndOfWord);
+}
+
+			
+let trieWords = ["Trie", "is","an","efficient","information", "retrieval", "data", "structure"];
+let output = ["is not present in the trie", "is present in the trie"];
+
+
+root = new DigitalTreeOrTrieTree();
+
+let i;
+for (i = 0; i < trieWords.length ; i++)
+	insert(trieWords[i]);
+
+if(search("the") == true) 
+	console.log("'the' " + output[1]);
+else
+	console.log("'the' " + output[0]);
+
+if(search("information") == true)
+	console.log("'information' " + output[1]);
+else
+	console.log("'information' " + output[0]);
+
+
+
+
+
