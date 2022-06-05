@@ -1,0 +1,61 @@
+class Queue:
+
+	def __init__(self, element):
+		
+		self.queue = []
+		self.frontElement = self.rearElement = 0
+		self.capacity = element
+
+	def pushIntoQueueOrEnqueue(self, data):
+
+		if(self.capacity == self.rearElement):
+			print("\nQueue is full!")
+		else:
+			self.queue.append(data)
+			self.rearElement += 1
+			print(data,"is pushed into the queue.")
+
+	def popFromQueueOrDequeue(self):
+
+		if(self.frontElement == self.rearElement):
+			print("Queue is empty.")
+		else:
+			dequeuedElement = self.queue.pop(0)
+			self.rearElement -= 1
+			print(dequeuedElement,"is the deleted element from the queue." )
+
+	def displayQueue(self):
+		
+		if(self.frontElement == self.rearElement):
+			print("\nQueue is Empty")
+		for i in self.queue:
+			print(i, end =" ")
+	
+	def topOfQueue(self):
+		
+		if(self.frontElement == self.rearElement):
+			print("\nQueue is Empty")
+		print("\n",self.queue[self.frontElement],"is the front element of the queue.")
+			
+
+if __name__=='__main__':
+	queueUsingArray = Queue(4)
+	
+	queueUsingArray.pushIntoQueueOrEnqueue(20)
+	queueUsingArray.pushIntoQueueOrEnqueue(30)
+	queueUsingArray.pushIntoQueueOrEnqueue(40)
+	queueUsingArray.pushIntoQueueOrEnqueue(50)
+print("\n-------------------------------------")
+print("Elements of Queue are :\n")   
+queueUsingArray.displayQueue()
+
+print("\n-------------------------------------")
+queueUsingArray.topOfQueue()
+
+print("\n-------------------------------------")
+queueUsingArray.popFromQueueOrDequeue()
+print("\n-------------------------------------")
+print("\nElements of queue after deletion of front element :\n ")
+queueUsingArray.displayQueue()
+
+
