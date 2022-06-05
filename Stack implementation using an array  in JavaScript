@@ -1,0 +1,61 @@
+
+var top= -1;
+var MAX = 1000;
+var a = Array(MAX).fill(0); 
+
+function isStackEmpty() {
+    return (top< 0);
+}
+
+function pushInStack(element) {
+    if (top>= (MAX - 1)) {
+        console.log("Stack is Overflow!");
+        return false;
+    } else {
+    top+=1;
+        a[top] = element;
+        console.log(element + " is pushed into the stack.");
+        return true;
+    }
+}
+
+function popFromStack() {
+    if (top< 0) {
+        console.log("Stack is Underflow1");
+        return 0;
+    } else {
+        var element = a[top];
+        top-=1;
+        return element;
+    }
+}
+
+function peekInStack() {
+    if (top< 0) {
+        console.log("Stack is Underflow!");
+        return 0;
+    } else {
+        var element = a[top];
+        return element;
+    }
+}
+
+function displayStack() {
+    for (i = top; i > -1; i--) {
+        console.log(a[i]);
+    }
+}
+
+pushInStack(10);
+pushInStack(20);
+pushInStack(30);
+console.log("---------------------------------")
+console.log("Elements of stack are : ");
+displayStack();
+console.log("---------------------------------")
+console.log("\n" +popFromStack() + " is the popped element from the stack.");
+console.log("---------------------------------")
+console.log("\n" + peekInStack() + " is the peek element of the  stack.");
+
+
+
