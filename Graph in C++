@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void addEdgeToGraph(vector<int> array[], int startingVertex, int endingVertex)
+{
+	array[startingVertex].push_back(endingVertex);
+	array[endingVertex].push_back(startingVertex);
+}
+
+void showGraph(vector<int> array[], int Vertices)
+{
+	for (int vertex = 0; vertex < Vertices; ++vertex) {
+		cout << "\n Attached Vertices to vertex "<< vertex <<" is : ";
+		for (auto x : array[vertex])
+			cout << "-> " << x;
+	}
+}
+
+int main()
+{
+	int Vertices = 5;
+	vector<int> array[Vertices];
+	addEdgeToGraph(array, 0, 1);
+	addEdgeToGraph(array, 0, 4);
+	addEdgeToGraph(array, 1, 2);
+	addEdgeToGraph(array, 1, 3);
+	addEdgeToGraph(array, 1, 4);
+	addEdgeToGraph(array, 2, 3);
+	addEdgeToGraph(array, 3, 4);
+	showGraph(array, Vertices);
+	return 0;
+}
