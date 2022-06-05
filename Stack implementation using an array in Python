@@ -1,0 +1,30 @@
+from sys import maxsize
+
+def createStack():
+	stack = []
+	return stack
+
+def isStackEmpty(stack):
+	return len(stack) == 0
+
+def pushInStack(stack, element):
+	stack.append(element)
+	print(element + " is pushed in the stack. ")
+	
+def popFromStack(stack):
+	if (isStackEmpty(stack)):
+		return str(-maxsize -1) 
+	
+	return stack.pop()
+
+def peekInStack(stack):
+	if (isStackEmpty(stack)):
+		return str(-maxsize -1) 
+	return stack[len(stack) - 1]
+
+stack = createStack()
+pushInStack(stack, str(10))
+pushInStack(stack, str(20))
+pushInStack(stack, str(30))
+print("\n" + popFromStack(stack) + " is the popped element from the stack.")
+print("\n" + peekInStack(stack) + " is the peek element of the  stack.")
