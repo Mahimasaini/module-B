@@ -1,0 +1,59 @@
+#include <iostream>
+using namespace std;
+    int queue[100], sizeOfArray = 100, frontElement = - 1, rearElement = - 1;
+    void InsertIntoQueue() {
+       int element;
+       if (rearElement == sizeOfArray - 1)
+       cout<<"Queue is  Overflow! "<<endl;
+       else {
+          if (frontElement == - 1)
+          frontElement = 0;
+          cout<<"Insert the element in queue : ";
+          cin>>element;
+          rearElement++;
+          queue[rearElement] = element;
+       }
+    }
+    void DeleteFromQueue() {
+       if (frontElement == - 1 || frontElement > rearElement) {
+          cout<<"Queue  is Underflow !";
+          return ;
+       } else {
+          cout<<"Element deleted from queue is : "<< queue[frontElement] <<endl;
+          frontElement++;;
+       }
+    }
+    void DisplayQueue() {
+       if (frontElement == - 1)
+       cout<<"Queue is empty."<<endl;
+       else {
+          cout<<"Queue elements are : ";
+          for (int i = frontElement; i <= rearElement; i++)
+          cout<<queue[i]<<" ";
+             cout<<endl;
+       }
+    }
+    int main() {
+       int choice;
+       cout<<"1. Insert element to the queue"<<endl;
+       cout<<"2. Display all the elements of the queue"<<endl;
+       cout<<"3. Delete element from the queue"<<endl;
+       cout<<"4. Exit operations"<<endl;
+       do {
+          cout<<"\nEnter your choice : ";
+          cin>>choice;
+          switch (choice) {
+             case 1: InsertIntoQueue();
+             break;
+             case 2: DisplayQueue();
+             break;
+             case 3: DeleteFromQueue();
+             break;
+             case 4: cout<<"Exit"<<endl;
+             break;
+             default: cout<<"Enter a valid choice.();"<<endl;
+          }
+       } while(choice!=4);
+       return 0;
+    }
+    
