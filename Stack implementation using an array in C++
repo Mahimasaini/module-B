@@ -1,0 +1,77 @@
+#include <iostream>
+using namespace std;
+    int stack[100], sizeOfArray=100, top=-1;
+    void push(int element) {
+       if(top>=sizeOfArray-1)
+       cout<<"Stack  is Overflow!"<<endl;
+       else {
+          top++;
+          stack[top]=element;
+       }
+    }
+    void pop() {
+       if(top<=-1)
+       cout<<"Stack is Underflow!"<<endl;
+       else {
+          cout<<"The popped element is "<< stack[top] <<endl;
+          top--;
+       }
+    }
+    void peek() {
+        if(top<=-1)
+        cout<<"Stack is empty!"<<endl;
+        else{
+            cout<<"Top element of the stack is  "<< stack[top]<<endl;
+            top;
+        }
+    }
+    void display() {
+       if(top>=0) {
+          cout<<"Elements of stack are : ";
+          for(int i=top; i>=0; i--)
+          cout<<stack[i]<<" ";
+          cout<<endl;
+       } else
+       cout<<"Stack is empty!";
+    }
+    int main() {
+       int ch, element;
+       cout<<"1. Push element in stack"<<endl;
+       cout<<"2. Pop element from stack"<<endl;
+       cout<<"3. Peek element in stack"<<endl;
+       cout<<"4. Display stack"<<endl;
+       cout<<"5. Exit operations"<<endl;
+       do {
+        //   cout<<"\n";
+          cout<<"\nEnter your choice: "<<endl;
+          cin>>ch;
+          switch(ch) {
+             case 1: {
+                cout<<"Enter the value to be pushed in stack :"<<endl;
+                cin>>element;
+                push(element);
+                break;
+             }
+             case 2: {
+                pop();
+                break;
+             }
+             case 3: {
+                peek();
+                break;
+             }
+             case 4: {
+                 display();
+                 break;
+             }
+             case 5: {
+                cout<<"Exit"<<endl;
+                break;
+             }
+             default: {
+                cout<<"Enter a valid choice! "<<endl;
+             }
+          }
+       }while(ch!=5);
+       return 0;
+    }
