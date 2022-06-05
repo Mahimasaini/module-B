@@ -1,0 +1,85 @@
+#include <iostream>
+using namespace std;
+    struct node {
+       int data;
+       struct node *next;
+    };
+
+    struct node* frontElement = NULL;
+    struct node* rearElement = NULL;
+    struct node* storeValue;
+
+    void insertIntoQueueOrEnqueue() {
+       int element;
+       cout<<"Insert the element in queue : ";
+       cin>>element;
+       if (rearElement == NULL) {
+          rearElement = (struct node *)malloc(sizeof(struct node));
+          rearElement->next = NULL;
+          rearElement->data = element;
+          frontElement = rearElement;
+       } else {
+          storeValue=(struct node *)malloc(sizeof(struct node));
+          rearElement->next = storeValue;
+          storeValue->data = element;
+          storeValue->next = NULL;
+          rearElement = storeValue;
+       }
+    }
+    void deleteFromQueueOrDequeue() {
+      storeValue = frontElement;
+      if (frontElement == NULL) {
+          cout<<"Queue is Underflow!"<<endl;
+          return;
+      }
+      else
+      if (storeValue->next != NULL) {
+          storeValue = storeValue->next;
+          cout<<"Element deleted from queue is : "<<frontElement->data<<endl;
+          free(frontElement);
+          frontElement = storeValue;
+      } else {
+          cout<<"Element deleted from queue is : "<<frontElement->data<<endl;
+          free(frontElement);
+          frontElement = NULL;
+          rearElement = NULL;
+      }
+    }
+   
+    void displayQueue() {
+       storeValue = frontElement;
+       if ((frontElement == NULL) && (rearElement == NULL)) {
+          cout<<"Queue is empty."<<endl;
+          return;
+       }
+       cout<<"Queue elements are :";
+       while (storeValue != NULL) {
+          cout<<storeValue->data<<" ";
+          storeValue = storeValue->next;
+       }
+       cout<<endl;
+    }
+    int main() {
+       int choice;
+       cout<<"1. Insert element to the queue"<<endl;
+       cout<<"2. Display all the elements of the queue"<<endl;
+       cout<<"3. Delete element from the queue"<<endl;
+       cout<<"4. Exit"<<endl;
+       do {
+          cout<<"\nEnter your choice : ";
+          cin>>choice;
+          switch (choice) {
+             case 1: insertIntoQueueOrEnqueue();
+             break;
+             case 2: displayQueue();
+             break;
+             case 3: deleteFromQueueOrDequeue();
+             break;
+             case 4: cout<<"Exit"<<endl;
+             break;
+             default: cout<<"Enter a valid choice."<<endl;
+          }
+       } while(choice!=4);
+       return 0;
+    }
+    
