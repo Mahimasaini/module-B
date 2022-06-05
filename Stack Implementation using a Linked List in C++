@@ -1,0 +1,74 @@
+#include <iostream>
+using namespace std;
+    struct Node {
+       int data;
+       struct Node *next;
+    };
+    struct Node* top = NULL;
+    
+    void pushIntoStack(int element) {
+       struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
+       newNode->data = element;
+       newNode->next = top;
+       top = newNode;
+    }
+    
+    void popFromStack() {
+       if(top==NULL)
+       cout<<"Stack is Underflow!"<<endl;
+       else {
+          cout<<"The popped element is  "<< top->data <<endl;
+          top = top->next;
+       }
+    }
+    
+     void printStack() {
+       struct Node* pointer;
+       if(top==NULL)
+       cout<<"Stack is empty!";
+       else {
+          pointer = top;
+          cout<<"Elements of stack are : ";
+          while (pointer != NULL) {
+             cout<< pointer->data <<" ";
+             pointer = pointer->next;
+          }
+       }
+       cout<<endl;
+    }
+
+    int main() {
+       int choice, element;
+       cout<<"1. Push element in the stack"<<endl;
+       cout<<"2. Pop the element from stack"<<endl;
+       cout<<"3. Display stack"<<endl;
+       cout<<"4. Exit operations"<<endl;
+       do {
+          cout<<"\nEnter your choice : ";
+          cin>>choice;
+          switch(choice) {
+             case 1: {
+                cout<<"Enter the value to be pushed in stack : ";
+                cin>>element;
+                pushIntoStack(element);
+                break;
+             }
+             case 2: {
+                popFromStack();
+                break;
+             }
+             case 3: {
+                printStack();
+                break;
+             }
+             case 4: {
+                cout<<"Exit"<<endl;
+                break;
+             }
+             default: {
+                cout<<"Enter a valid choice! "<<endl;
+             }
+          }
+       }while(choice!=4);
+       return 0;
+    }
