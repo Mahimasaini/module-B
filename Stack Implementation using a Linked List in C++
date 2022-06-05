@@ -22,6 +22,15 @@ using namespace std;
        }
     }
     
+    void peekFromStack() {
+       if(top==NULL)
+       cout<<"Stack is Underflow!"<<endl;
+       else {
+          cout<<"The top element is  "<< top->data <<endl;
+          top = top;
+       }
+    }
+    
      void printStack() {
        struct Node* pointer;
        if(top==NULL)
@@ -40,9 +49,10 @@ using namespace std;
     int main() {
        int choice, element;
        cout<<"1. Push element in the stack"<<endl;
-       cout<<"2. Pop the element from stack"<<endl;
-       cout<<"3. Display stack"<<endl;
-       cout<<"4. Exit operations"<<endl;
+       cout<<"2. Display stack"<<endl;
+       cout<<"3. Pop the element from stack"<<endl;
+       cout<<"4. Top element of the  stack"<<endl;
+       cout<<"5. Exit operations"<<endl;
        do {
           cout<<"\nEnter your choice : ";
           cin>>choice;
@@ -54,14 +64,18 @@ using namespace std;
                 break;
              }
              case 2: {
-                popFromStack();
-                break;
-             }
-             case 3: {
                 printStack();
                 break;
              }
+             case 3: {
+                popFromStack();
+                break;
+             }
              case 4: {
+               peekFromStack();
+                break;
+             }
+              case 5: {
                 cout<<"Exit"<<endl;
                 break;
              }
@@ -69,6 +83,6 @@ using namespace std;
                 cout<<"Enter a valid choice! "<<endl;
              }
           }
-       }while(choice!=4);
+       }while(choice!=5);
        return 0;
     }
