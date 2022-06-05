@@ -1,0 +1,93 @@
+    class Node
+    {
+        constructor()
+        {
+            this.data=0;
+            this.link=null;
+        }
+    }
+    
+    class StackUsingLinkedlist
+    {
+        constructor()
+        {
+            this.top=null;
+        }
+        
+        pushInStack(element)
+        {
+            let tempNode = new Node();
+    
+            if (tempNode == null) {
+                console.log("Stack is Overflow!");
+                return;
+            }
+            tempNode.data = element;
+            tempNode.link = this.top;
+            this.top = tempNode;
+            console.log(element+" is pushed into the stack.")
+        }
+        
+        isStackEmpty()
+        {
+            return this.top == null;
+        }
+        
+        peekInStack()
+        {
+            if (!this.isStackEmpty()) {
+                return this.top.data;
+            }
+            else {
+                console.log("Stack is Empty!");
+                return -1;
+            }
+        }
+        
+        popFromStack() 
+        {
+            if (this.top == null) {
+                console.log("Stack  is Underflow!");
+                return;
+            }
+            console.log(this.top.data + " is the popped element from the stack.")
+            this.top = this.top.link;
+        }
+        
+        display()
+        {
+            if (this.top == null) {
+                console.log("Stack is Underflow!");
+                
+            }
+            else {
+                let tempNode = this.top;
+                while (tempNode != null) {
+                    console.log(tempNode.data);
+                    tempNode = tempNode.link;
+                }
+            }
+        }
+    }
+    
+    let stackNew = new StackUsingLinkedlist();
+    stackNew.pushInStack(11);
+    stackNew.pushInStack(22);
+    stackNew.pushInStack(33);
+    stackNew.pushInStack(44);
+   console.log("---------------------------------");
+   
+   console.log("Elements of stack are : ")
+    stackNew.display();
+    console.log("---------------------------------");
+    
+    console.log(stackNew.peekInStack()+ " is the peek element from the stack.");
+ 
+ console.log("---------------------------------");  
+ stackNew.popFromStack() 
+console.log("---------------------------------");
+console.log("Elements of stack after deleting  peek element : ");   
+    stackNew.display();
+    
+    
+    
