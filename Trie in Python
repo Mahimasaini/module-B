@@ -1,0 +1,59 @@
+class TrieNode:
+	
+	def __init__(self):
+		self.children = [None]*26
+		self.isEndOfWord = False
+
+class Trie:
+	
+	def __init__(self):
+		self.root = self.getNode()
+
+	def getNode(self):
+		return TrieNode()
+
+	def _charToIndex(self,ch):
+		return ord(ch)-ord('a')
+
+
+	def insert(self,trieWord):
+		word = self.root
+		length = len(trieWord)
+		for level in range(length):
+			index = self._charToIndex(trieWord[level])
+
+			if not word.children[index]:
+				word.children[index] = self.getNode()
+			word = word.children[index]
+
+		word.isEndOfWord = True
+
+	def search(self, trieWord):
+		
+		word = self.root
+		length = len(trieWord)
+		for level in range(length):
+			index = self._charToIndex(trieWord[level])
+			if not word.children[index]:
+				return False
+			word = word.children[index]
+
+		return word.isEndOfWord
+
+def main():
+
+	words = ["Trie", "is","an","efficient","information", "retrieval", "data", "structure"]
+	output = ["is not present in the  trie.",
+			"is present in the trie."]
+
+	t = Trie()
+
+	for trieWord in words:
+		t.insert(trieWord)
+
+	print("{} {}".format("'the'",output[t.search("the")]))
+	print("{} {}".format("'information'",output[t.search("information")]))
+    
+if __name__ == '__main__':
+	main()
+
