@@ -1,0 +1,95 @@
+    class Queue{
+        
+    constructor(element)
+    {
+        this.frontElement = this.rearElement = 0;
+        this.elemnt = element;
+        this.queue = new Array(this.elemnt);
+    }
+    
+  
+    pushIntoQueueOrEnqueue(data)
+    {
+        if (this.elemnt == this.rearElement)
+        {
+            console.log("Queue is full!");
+            return;
+        }
+        else
+        {
+            this.queue[this.rearElement] = data;
+            this.rearElement++;
+            console.log(data + " is pushed into the queue.")
+        }
+        return;
+    }
+
+    popFromQueueOrDequeue()
+    {
+        if (this.frontElement == this.rearElement)
+        {
+            console.log("Queue is empty.");
+            return;
+        }
+        else
+        {
+            for(let i = 0; i < this.rearElement - 1; i++)
+            {
+                this.queue[i] = this.queue[i + 1];
+            }
+            if (this.rearElement < this.elemnt)
+                this.queue[this.rearElement] = 0;
+                
+            return this.rearElement--;
+        }
+    }
+    
+    displayQueue()
+    {
+        let i;
+        if (this.frontElement == this.rearElement)
+        {
+            console.log("Queue is Empty.");
+            return;
+        }
+        for(i = this.frontElement; i < this.rearElement; i++)
+        {
+            console.log(this.queue[i]);
+        }
+        return;
+    }
+    
+    topOfQueue()
+    {
+        if (this.frontElement == this.rearElement)
+        {
+            console.log("Queue is Empty.");
+            return;
+        }
+        console.log(this.queue[this.frontElement]+" is the front element of the queue.");
+        return;
+    }
+    }
+    
+    let queueUsingArray = new Queue(4);
+
+    queueUsingArray.pushIntoQueueOrEnqueue(20);
+    queueUsingArray.pushIntoQueueOrEnqueue(30);
+    queueUsingArray.pushIntoQueueOrEnqueue(40);
+    queueUsingArray.pushIntoQueueOrEnqueue(50);
+    console.log("--------------------------------------");
+    
+    console.log("Elements of Queue are :")
+    queueUsingArray.displayQueue();
+    console.log("--------------------------------------");
+    
+     queueUsingArray.topOfQueue();
+    console.log("--------------------------------------");
+    
+    queueUsingArray.popFromQueueOrDequeue();
+    
+    console.log("Elements of queue after deletion of front element:");
+    queueUsingArray.displayQueue();
+    
+   
+    
