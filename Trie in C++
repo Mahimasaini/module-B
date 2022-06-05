@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int ALPHABET_SIZE = 26;
+
+struct DigitalTreeOrTrieTree
+{
+	struct DigitalTreeOrTrieTree *children[ALPHABET_SIZE];
+	bool isWordEndHere;
+};
+
+struct DigitalTreeOrTrieTree *getNode(void)
+{
+	struct DigitalTreeOrTrieTree *newTrieNode = new DigitalTreeOrTrieTree;
+	newTrieNode->isWordEndHere = false;
+
+	for (int i = 0; i < ALPHABET_SIZE; i++)
+		newTrieNode->children[i] = NULL;
+
+	return newTrieNode;
+}
+
+void insert(struct DigitalTreeOrTrieTree *root, string key)
+{
+	struct DigitalTreeOrTrieTree *word = root;
+
+	for (int i = 0; i < key.length(); i++)
+	{
+		int indexOfWord = key[i] - 'a';
+		if (!word->children[indexOfWord])
+			word->children[indexOfWord] = getNode();
+
+		word = word->children[indexOfWord];
+	}
+
+	word->isWordEndHere = true;
+}
+
+
+bool search(struct DigitalTreeOrTrieTree *root, string key)
+{
+	struct DigitalTreeOrTrieTree *word = root;
+
+	for (int i = 0; i < key.length(); i++)
+	{
+		int indexOfWord = key[i] - 'a';
+		if (!word->children[indexOfWord])
+			return false;
+
+		word = word->children[indexOfWord];
+	}
+
+	return (word->isWordEndHere);
+}
+
+int main()
+{
+	
+	string words[] = {"Trie", "is","an","efficient","information", "retrieval", "data", "structure" };
+	int sizeOfWords = sizeof(words)/sizeof(words[0]);
+
+	struct DigitalTreeOrTrieTree *root = getNode();
+
+	for (int i = 0; i < sizeOfWords; i++)
+		insert(root, words[i]);
+
+	search(root, "the")? cout<<"Is 'the' present : "<< "Yes\n" :
+						cout <<"Is 'the' present : "<< "No\n";
+						
+	search(root, "information")? cout<<"Is 'information' present : " << "Yes\n" :
+						cout <<"Is 'information' present : "<< "No\n";
+
+
+	return 0;
+}
