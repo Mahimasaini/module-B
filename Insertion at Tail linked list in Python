@@ -1,0 +1,38 @@
+ class Node:
+
+	def __init__(currentInstance, dataValue):
+		currentInstance.dataValue = dataValue
+		currentInstance.nextNode = None 
+
+class LinkedListInsertProgram:
+
+	def __init__(currentInstance):
+		currentInstance.headOfList = None
+
+	def insertAtEndOfLinkedList(currentInstance, newValue):
+		newNode = Node(newValue)
+
+		if currentInstance.headOfList is None:
+			currentInstance.headOfList = newNode
+			return
+		lastOfList = currentInstance.headOfList
+		while (lastOfList.nextNode):
+			lastOfList = lastOfList.nextNode
+		lastOfList.nextNode = newNode
+
+	def showLinkedList(currentInstance):
+		tempValue = currentInstance.headOfList
+		while (tempValue):
+			print(tempValue.dataValue,end=" ")
+			tempValue = tempValue.nextNode
+
+if __name__=='__main__':
+	linkedList = LinkedListInsertProgram()
+
+	linkedList.insertAtEndOfLinkedList(10)
+	linkedList.insertAtEndOfLinkedList(20);
+	linkedList.insertAtEndOfLinkedList(30);
+	linkedList.insertAtEndOfLinkedList(40)
+
+	print('The following Linked List is : ')
+	linkedList.showLinkedList()
