@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+    
+    struct Node {
+        int dataValue;
+        Node* nextNode;
+    };
+    
+    class LinkedListInsertProgram {
+      private:
+        Node* headOfList;
+      public:
+        LinkedListInsertProgram(){
+          headOfList = NULL;
+        }
+     
+        void insertAtEndOfLinkedList(int newValue) {
+          Node* newNode = new Node();
+          newNode->dataValue = newValue;
+          newNode->nextNode = NULL; 
+          if(headOfList == NULL) {
+            headOfList = newNode;
+          } else {
+            Node* tempValue = headOfList;
+            while(tempValue->nextNode != NULL)
+              tempValue = tempValue->nextNode;
+            tempValue->nextNode = newNode;
+          }    
+        }
+    
+        void showLinkedList() {
+          Node* tempValue = headOfList;
+          if(tempValue != NULL) {
+            cout<<"The following Linked List is : ";
+            while(tempValue != NULL) {
+              cout<<tempValue->dataValue<<" ";
+              tempValue = tempValue->nextNode;
+            }
+            cout<<endl;
+          } else {
+            cout<<"The Linked List is empty.\n";
+          }
+        }    
+    };
+    
+    int main() {
+      LinkedListInsertProgram linkedList;
+    
+      linkedList.insertAtEndOfLinkedList(10);
+      linkedList.insertAtEndOfLinkedList(20);
+      linkedList.insertAtEndOfLinkedList(30);
+      linkedList.insertAtEndOfLinkedList(40);
+      linkedList.showLinkedList();
+      
+      return 0; 
+    }
