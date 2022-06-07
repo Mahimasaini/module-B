@@ -1,0 +1,42 @@
+
+	var headOfList; 
+	class Node {
+			constructor(newValue) {
+				this.data = newValue;
+				this.nextNode = null;
+			}
+		}
+
+	function insertAtEndOfLinkedList(newValue) {
+		var newNode = new Node(newValue);
+		if (headOfList == null) {
+			headOfList = new Node(newValue);
+			return;
+		}
+
+		newNode.nextNode = null;
+		var lastOfList = headOfList;
+		while (lastOfList.nextNode != null)
+			lastOfList = lastOfList.nextNode;
+
+		lastOfList.nextNode = newNode;
+		return;
+	}
+
+	function showLinkedList() {
+    var tempValue = headOfList;
+		while (tempValue != null) {
+			console.log(tempValue.data + " ");
+			tempValue = tempValue.nextNode;
+		}
+	}
+
+		insertAtEndOfLinkedList(10);
+		insertAtEndOfLinkedList(20);
+		insertAtEndOfLinkedList(30);
+		insertAtEndOfLinkedList(40);
+
+		console.log("\nThe following Linked List is :  ");
+		showLinkedList();
+
+
