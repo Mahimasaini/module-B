@@ -1,0 +1,57 @@
+	var headOfList;
+
+	class Node {
+		constructor(newValue) {
+			this.elementValue = newValue;
+			this.nextElement = null;
+		}
+	}
+
+	function insertIntoLinkedList(newValue) {
+		var newNodeValue = new Node(newValue);
+		newNodeValue.nextElement = headOfList;
+		headOfList = newNodeValue;
+	}
+
+   function deleteFromLinkedList(dataValue) {
+		var tempNode = headOfList, previousNode = null;
+
+		if (tempNode != null && tempNode.elementValue == dataValue) {
+			headOfList = tempNode.nextElement; 
+			return;
+		}
+
+		while (tempNode != null && tempNode.elementValue != dataValue) {
+			previousNode = tempNode;
+			tempNode = tempNode.nextElement;
+		}
+
+		if (tempNode == null)
+			return;
+
+		previousNode.nextElement = tempNode.nextElement;
+	}
+
+	function displayLinkedList() {
+		tempNode = headOfList;
+		while (tempNode != null) {
+			console.log(tempNode.elementValue);
+			tempNode = tempNode.nextElement;
+		}
+	}
+
+		insertIntoLinkedList(10);
+		insertIntoLinkedList(20);
+		insertIntoLinkedList(30);
+		insertIntoLinkedList(40);
+
+		console.log("The following Linked List is :  ");
+		displayLinkedList();
+
+		deleteFromLinkedList(20);
+
+		console.log("Linked List after deletion of element :");
+		displayLinkedList();
+
+
+
