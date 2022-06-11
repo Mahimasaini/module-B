@@ -1,0 +1,67 @@
+class QNode
+{
+	constructor(newValue)
+	{
+		this.newValue = newValue;
+		this.nextNode = null;
+	}
+}
+
+let headOfList = null, tailOfList = null;
+
+function insertIntoQueueOrEnqueue(newValue)
+{
+		let tempValue = new QNode(newValue);
+		console.log(newValue + " is pushed into the queue.")
+		
+		if (tailOfList == null) {
+			headOfList = tailOfList = tempValue;
+			return;
+		}
+		tailOfList.nextNode = tempValue;
+		tailOfList = tempValue;
+}
+
+
+function deleteFromQueueOrDequeue()
+{
+		if (headOfList == null){
+		console.log("Queue is empty.");
+			return;
+		}
+		let tempValue = headOfList;
+		headOfList = headOfList.nextNode;
+		if (headOfList == null)
+			tailOfList = null;
+}
+
+function displayQueue()
+	{
+		var tempValue = headOfList;
+		while (tempValue != null) {
+			console.log(tempValue.newValue );
+			tempValue = tempValue.nextNode;
+		}
+	}
+
+insertIntoQueueOrEnqueue(10);
+insertIntoQueueOrEnqueue(20);
+insertIntoQueueOrEnqueue(30);
+insertIntoQueueOrEnqueue(40);
+insertIntoQueueOrEnqueue(50);
+console.log("--------------------------------------");
+
+
+console.log("Elements of Queue are :")
+displayQueue();
+console.log("--------------------------------------");
+
+console.log(headOfList.newValue+" is the front element of the queue.");
+console.log("--------------------------------------");
+
+deleteFromQueueOrDequeue();
+
+console.log("Elements of queue after deletion of front element:");
+displayQueue();
+
+
