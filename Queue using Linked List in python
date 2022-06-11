@@ -1,0 +1,64 @@
+class Node:
+	
+	def __init__(currentInstance, dataValue):
+		currentInstance.dataValue = dataValue
+		currentInstance.nextNode = None
+
+class Queue:
+	
+	def __init__(currentInstance):
+		currentInstance.headOfList = currentInstance.tailOfList = None
+
+	def isEmpty(currentInstance):
+		return currentInstance.headOfList == None
+		print("Queue is empty.")
+	
+	def insertIntoQueueOrEnqueue(currentInstance, queueValue):
+		tempValue = Node(queueValue)
+		print(queueValue,"is pushed into the queue.")
+		
+		if currentInstance.tailOfList == None:
+			currentInstance.headOfList = currentInstance.tailOfList = tempValue
+			return
+		currentInstance.tailOfList.nextNode = tempValue
+		currentInstance.tailOfList = tempValue
+
+	def deleteFromQueueOrDequeue(currentInstance):
+		
+		if currentInstance.isEmpty():
+			return
+			
+		tempValue = currentInstance.headOfList
+		currentInstance.headOfList = tempValue.nextNode
+		print(tempValue.dataValue,"is the deleted element from the queue.")
+		
+		if(currentInstance.headOfList == None):
+			currentInstance.tailOfList = None
+			
+	
+	def displayQueue(currentInstance):
+	    tempValue = currentInstance.headOfList
+	    while (tempValue):
+	        print (tempValue.dataValue,end=" ")
+	        tempValue = tempValue.nextNode
+	
+
+if __name__== '__main__':
+	queue = Queue()
+	queue.insertIntoQueueOrEnqueue(10)
+	queue.insertIntoQueueOrEnqueue(20)
+	queue.insertIntoQueueOrEnqueue(40)
+	queue.insertIntoQueueOrEnqueue(50)
+	print("\n-------------------------------------")
+	
+	print("\nElements of Queue are : ",)
+queue.displayQueue()
+
+print("\n-------------------------------------")
+print(str(queue.headOfList.dataValue),"is the front element of the queue.")
+
+print("\n-------------------------------------")
+queue.deleteFromQueueOrDequeue()
+print("\nElements of queue after deletion of front element : ")
+queue.displayQueue()
+	
