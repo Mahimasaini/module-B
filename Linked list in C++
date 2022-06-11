@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node{
+public:
+	int value;
+	Node* nextNode;
+};
+
+void insertIntoLinkedList(Node** headptr, int newValue)
+{
+	Node* newNode = new Node();
+	newNode->value = newValue;
+	newNode->nextNode = (*headptr);
+	(*headptr) = newNode;
+}
+
+void deleteFromLinkedList(Node** headptr, int dataValue)
+{
+	
+	Node* tempNode = *headptr;
+	Node* previousNode = NULL;
+	
+	if (tempNode != NULL && tempNode->value == dataValue)
+	{
+		*headptr = tempNode->nextNode; 
+		delete tempNode;		 
+		return;
+	}
+	else
+	{
+	while (tempNode != NULL && tempNode->value != dataValue)
+	{
+		previousNode = tempNode;
+		tempNode = tempNode->nextNode;
+	}
+
+	if (tempNode == NULL)
+		return;
+
+	previousNode->nextNode = tempNode->nextNode;
+	delete tempNode;
+	}
+}
+
+void displayLinkedList(Node* dataValue)
+{
+	while (dataValue != NULL)
+	{
+		cout << dataValue->value << " ";
+		dataValue = dataValue->nextNode;
+	}
+}
+
+int main()
+{
+	Node* headOfList = NULL;
+
+	insertIntoLinkedList(&headOfList, 10);
+	insertIntoLinkedList(&headOfList, 20);
+	insertIntoLinkedList(&headOfList, 30);
+	insertIntoLinkedList(&headOfList, 40);
+
+	cout<<"The following Linked list is : ";
+	displayLinkedList(headOfList);
+
+	deleteFromLinkedList(&headOfList, 20);
+	cout<<"\n\nLinked List after deletion of element : ";
+	
+	displayLinkedList(headOfList);
+	
+	return 0;
+}
+
