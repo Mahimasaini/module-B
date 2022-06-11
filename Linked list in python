@@ -1,0 +1,59 @@
+class Node:
+
+	def __init__(currentInstance, dataValue):
+		currentInstance.dataValue = dataValue
+		currentInstance.nextNode = None
+
+class LinkedList:
+
+	def __init__(currentInstance):
+		currentInstance.headOfList = None
+
+	def insertIntoLinkedList(currentInstance, newValue):
+		newNodeValue = Node(newValue)
+		newNodeValue.nextNode = currentInstance.headOfList
+		currentInstance.headOfList = newNodeValue
+
+	def deleteFromLinkedList(currentInstance, dataValue):
+		
+		tempNode = currentInstance.headOfList
+
+		if (tempNode is not None):
+			if (tempNode.dataValue == dataValue):
+				currentInstance.headOfList = tempNode.nextNode
+				tempNode = None
+				return
+
+		while(tempNode is not None):
+			if tempNode.dataValue == dataValue:
+				break
+			previousNode = tempNode
+			tempNode = tempNode.nextNode
+			
+		if(tempNode == None):
+			return
+		previousNode.nextNode = tempNode.nextNode
+		tempNode = None
+
+
+	def displayLinkedlist(currentInstance):
+		tempNode = currentInstance.headOfList
+		while(tempNode):
+			print (tempNode.dataValue,end=" ")
+			tempNode = tempNode.nextNode
+
+
+linkedList = LinkedList()
+linkedList.insertIntoLinkedList(10)
+linkedList.insertIntoLinkedList(20)
+linkedList.insertIntoLinkedList(30)
+linkedList.insertIntoLinkedList(40)
+
+print ("The following Linked List is :  ")
+linkedList.displayLinkedlist()
+
+linkedList.deleteFromLinkedList(20)
+
+print ("\n\nLinked List after deletion of element :")
+linkedList.displayLinkedlist()
+
