@@ -1,0 +1,73 @@
+const sortingArrayInMaxHeap = (array, sizeOfArray, i) => {
+  let largest = i;
+  let leftElement = 2 * i + 1; 
+  let rightElement= 2 * i + 2; 
+  
+   if (leftElement < sizeOfArray && array[leftElement] > array[largest]) {
+         largest = leftElement; 
+   }
+  
+   if (rightElement < sizeOfArray && array[rightElement] > array[largest]) {
+        largest = rightElement; 
+   }
+  
+   if (largest != i) { 
+        let temp = array[i]; 
+        array[i] = array[largest]; 
+        array[largest] = temp; 
+        sortingArrayInMaxHeap(array, sizeOfArray, largest); 
+    } 
+}
+
+ 
+ const sortingArrayInMinHeap = (array, sizeOfArray, i) => {
+  let smallest = i;
+  let leftElement = 2 * i + 1; 
+  let rightElement = 2 * i + 2; 
+  
+   if (leftElement < sizeOfArray && array[leftElement] < array[smallest]) {
+            smallest = leftElement; 
+   }
+  
+   if (rightElement < sizeOfArray && array[rightElement] < array[smallest]) {
+        smallest = rightElement; 
+   }
+  
+   if (smallest != i) { 
+        let temp = array[i]; 
+        array[i] = array[smallest]; 
+        array[smallest] = temp; 
+        sortingArrayInMinHeap(array, sizeOfArray, smallest); 
+    } 
+}
+
+const maxHeapSortProgram = (array, sizeOfArray) => { 
+     for (let i = parseInt(sizeOfArray / 2 - 1); i >= 0; i--) {
+         sortingArrayInMaxHeap(array, sizeOfArray, i);
+     }
+       for (let i = sizeOfArray - 1; i >= 0; i--) { 
+        let temp = array[0]; 
+        array[0] = array[i]; 
+        array[i] = temp; 
+        sortingArrayInMaxHeap(array, i, 0); 
+     } 
+ }
+ const minHeapSortProgram = (array, sizeOfArray) => { 
+        for (let i = parseInt(sizeOfArray/ 2 - 1); i >= 0; i--) {
+         sortingArrayInMinHeap(array, sizeOfArray, i); 
+     }
+  
+     for (let i = sizeOfArray - 1; i >= 0; i--) { 
+        let temp = array[0]; 
+        array[0] = array[i]; 
+        array[i] = temp; 
+        sortingArrayInMinHeap(array, i, 0); 
+     } 
+ }
+ 
+const array = [4, 6, 3, 2, 9];
+console.log("Array before sorting the elements :",array)
+maxHeapSortProgram(array, array.length);
+console.log("Sorted elements according to Max Heap :",array)
+minHeapSortProgram(array, array.length);
+console.log("Sorted elements according to Min Heap :",array)
