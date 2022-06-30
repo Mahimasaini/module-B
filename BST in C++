@@ -1,0 +1,89 @@
+#include <iostream>
+using namespace std;
+
+struct node {
+  int NodeValue;
+  struct node *leftNode, *rightNode;
+};
+
+struct node *newNode(int value) {
+  struct node *tempValue = (struct node *)malloc(sizeof(struct node));
+  tempValue->NodeValue = value;
+  tempValue->leftNode = tempValue->rightNode = NULL;
+  return tempValue;
+}
+
+void inOrderTraversal(struct node *rootNode) {
+  if (rootNode != NULL) {
+    inOrderTraversal(rootNode->leftNode);
+    cout << rootNode->NodeValue << " -> ";
+    inOrderTraversal(rootNode->rightNode);
+  }
+}
+
+struct node *insertNodeInBST(struct node *node, int NodeValue) {
+  if (node == NULL) return newNode(NodeValue);
+
+  if (NodeValue < node->NodeValue)
+    node->leftNode = insertNodeInBST(node->leftNode, NodeValue);
+  else
+    node->rightNode = insertNodeInBST(node->rightNode, NodeValue);
+
+  return node;
+}
+
+
+struct node *nodeWithMinimumValue(struct node *node) {
+  struct node *current = node;
+
+  while (current && current->leftNode != NULL)
+    current = current->leftNode;
+
+  return current;
+}
+
+struct node *removeNodeFromBST(struct node *rootNode, int NodeValue) {
+  if (rootNode == NULL) return rootNode;
+
+  if (NodeValue < rootNode->NodeValue)
+    rootNode->leftNode = removeNodeFromBST(rootNode->leftNode, NodeValue);
+  else if (NodeValue > rootNode->NodeValue)
+    rootNode->rightNode = removeNodeFromBST(rootNode->rightNode, NodeValue);
+  else {
+    if (rootNode->leftNode == NULL) {
+      struct node *tempValue = rootNode->rightNode;
+      free(rootNode);
+      return tempValue;
+    } else if (rootNode->rightNode == NULL) {
+      struct node *tempValue = rootNode->leftNode;
+      free(rootNode);
+      return tempValue;
+    }
+
+    struct node *tempValue = nodeWithMinimumValue(rootNode->rightNode);
+
+    rootNode->NodeValue = tempValue->NodeValue;
+
+    rootNode->rightNode = removeNodeFromBST(rootNode->rightNode, tempValue->NodeValue);
+  }
+  return rootNode;
+}
+
+int main() {
+  struct node *rootNode = NULL;
+  rootNode = insertNodeInBST(rootNode, 8);
+  rootNode = insertNodeInBST(rootNode, 3);
+  rootNode = insertNodeInBST(rootNode, 1);
+  rootNode = insertNodeInBST(rootNode, 6);
+  rootNode = insertNodeInBST(rootNode, 7);
+  rootNode = insertNodeInBST(rootNode, 10);
+  rootNode = insertNodeInBST(rootNode, 14);
+  rootNode = insertNodeInBST(rootNode, 4);
+
+  cout << "Inorder traversing of the binary search tree after inserting nodes:\n";
+  inOrderTraversal(rootNode);
+
+  cout << "\nBinary search tree after deleting node 10\n";
+  rootNode = removeNodeFromBST(rootNode, 10);
+  inOrderTraversal(rootNode);
+}
