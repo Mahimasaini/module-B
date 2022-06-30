@@ -1,0 +1,99 @@
+var maze = [
+   [ 1, 1, 1, 1, 1, 0, 0, 1, 1, 1 ],
+[ 0, 1, 1, 1, 1, 1, 0, 1, 0, 1 ],
+[ 0, 0, 1, 0, 1, 1, 1, 0, 0, 1 ],
+[ 1, 0, 1, 1, 1, 0, 1, 1, 0, 1 ],
+[ 0, 0, 0, 1, 0, 0, 0, 1, 0, 1 ],
+[ 1, 0, 1, 1, 1, 0, 0, 1, 1, 0 ],
+[ 0, 0, 0, 0, 1, 0, 0, 11, 0, 1 ],
+[ 0, 1, 1, 1, 1, 1, 1, 1, 0, 0 ],
+[ 1, 1, 1, 1, 1, 0, 0, 1, 1, 1 ],
+[ 0, 0, 1, 0, 0, 1, 1, 0, 0, 1 ]
+
+];
+var visited = maze.map(function (item) { return item.map(function (item) { return false; }); });
+var stack = [];
+var executable = function (position, distance) {
+    return function () {
+        LeesAlgorithm(position, distance);
+    };
+};
+var toggle = true;
+function LeesAlgorithm(position, distance) {
+    if (distance === void 0) { distance = 0; }
+    distance += 1;
+    visited[position[0]][position[1]] = true;
+
+    if (exists([position[0] + 1, position[1]])) {
+        if (visited[position[0] + 1][position[1]] === false) {
+            if (maze[position[0] + 1][position[1]] === 1) {
+                visited[position[0] + 1][position[1]] = distance;
+                stack.push(executable([position[0] + 1, position[1]], distance));
+            }
+            else if (maze[position[0] + 1][position[1]] === 11) {
+                toggle = false;
+                console.log("Length of the Shortest Path is",distance);
+            }
+        }
+    }
+
+    if (exists([position[0] - 1, position[1]])) {
+        if (visited[position[0] - 1][position[1]] === false) {
+            if (maze[position[0] - 1][position[1]] === 1) {
+                visited[position[0] - 1][position[1]] = distance;
+                stack.push(executable([position[0] - 1, position[1]], distance));
+            }
+            else if (maze[position[0] - 1][position[1]] === 11) {
+                toggle = false;
+                console.log("Length of the Shortest Path is",distance);
+            }
+        }
+    }
+
+    if (exists([position[0], position[1] + 1])) {
+        if (visited[position[0]][position[1] + 1] === false) {
+            if (maze[position[0]][position[1] + 1] === 1) {
+                visited[position[0]][position[1] + 1] = distance;
+                stack.push(executable([position[0], position[1] + 1], distance));
+            }
+            else if (maze[position[0]][position[1] + 1] === 9) {
+                toggle = false;
+                console.log("Length of the Shortest Path is".distance);
+            }
+        }
+    }
+
+    if (exists([position[0], position[1] - 1])) {
+        if (visited[position[0]][position[1] - 1] === false) {
+            if (maze[position[0]][position[1] - 1] === 1) {
+                visited[position[0]][position[1] - 1] = distance;
+                stack.push(executable([position[0], position[1] - 1], distance));
+            }
+            else if (maze[position[0]][position[1] - 1] === 9) {
+                toggle = false;
+                console.log("Length of the Shortest Path is",distance);
+            }
+        }
+    }
+}
+function exists(position) {
+    if (position[0] < 0) {
+        return false;
+    }
+    else if (position[1] < 0) {
+        return false;
+    }
+    else if (position[0] > maze.length - 1) {
+        return false;
+    }
+    else if (position[1] > maze.length - 1) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+stack.push(executable([0, 0], 0));
+while (toggle) {
+    stack.shift()();
+}
