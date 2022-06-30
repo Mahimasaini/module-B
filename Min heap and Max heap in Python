@@ -1,0 +1,63 @@
+def sortingArrayInMaxHeap(array, sizeOfArray, i):
+      largest = i
+      leftElement = 2 * i + 1
+      rightElement = 2 * i + 2
+  
+      if leftElement < sizeOfArray and array[i] < array[leftElement]:
+          largest = leftElement
+  
+      if rightElement < sizeOfArray and array[largest] < array[rightElement]:
+          largest = rightElement
+  
+      if largest != i:
+          array[i], array[largest] = array[largest], array[i]
+          sortingArrayInMaxHeap(array, sizeOfArray, largest)
+
+def sortingArrayInMinHeap(array, sizeOfArray, i):
+      smallest = i
+      leftElement = 2 * i + 1
+      rightElement = 2 * i + 2
+  
+      if leftElement < sizeOfArray and array[i] > array[leftElement]:
+          smallest = leftElement
+  
+      if rightElement < sizeOfArray and array[smallest] > array[rightElement]:
+          smallest = rightElement
+  
+      if smallest != i:
+          array[i], array[smallest] = array[smallest], array[i]
+          sortingArrayInMinHeap(array, sizeOfArray, smallest)
+  
+def maxHeapSortProgram(array):
+    sizeOfArray = len(array)
+  
+    for i in range(sizeOfArray//2, -1, -1):
+        sortingArrayInMaxHeap(array, sizeOfArray, i)
+  
+    for i in range(sizeOfArray-1, 0, -1):
+        array[i], array[0] = array[0], array[i]
+        sortingArrayInMaxHeap(array, i, 0)
+
+
+def minHeapSortProgram(array):
+    sizeOfArray = len(array)
+  
+    for i in range(sizeOfArray//2, -1, -1):
+        sortingArrayInMinHeap(array, sizeOfArray, i)
+  
+    for i in range(sizeOfArray-1, 0, -1):
+        array[i], array[0] = array[0], array[i]
+        sortingArrayInMinHeap(array, i, 0)
+  
+  
+array = [ 4, 6, 3, 2, 9]
+print("Array before sorting the elements : ",array)
+maxHeapSortProgram(array)
+sizeOfArray = len(array)
+print("Sorted elements according to MAX Heap : ",array)
+minHeapSortProgram(array)
+sizeOfArray = len(array)
+print("Sorted elements according to MIN Heap : ",array)
+
+
+  
