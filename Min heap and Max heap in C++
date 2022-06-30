@@ -1,0 +1,109 @@
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+void maxHeapFunction (int *array, int sizeOfArray, int element)
+{
+  int j, t;
+  t = array[sizeOfArray];
+  j = 2 * sizeOfArray;
+  while (j <= element)
+    {
+      if (j < element && array[j + 1] > array[j])
+	j = j + 1;
+      if (t > array[j])
+	break;
+      else if (t <= array[j])
+	{
+	  array[j / 2] = array[j];
+	  j = 2 * j;
+	}
+    }
+  array[j / 2] = t;
+  return;
+}
+
+void createMaxHeap (int *array, int n)
+{
+  int k;
+  for (k = n / 2; k >= 1; k--)
+    {
+      maxHeapFunction (array, k, n);
+    }
+}
+
+void MinHeapFunction (int *array, int m, int n)
+{
+  int j, t;
+  t = array[m];
+  j = 2 * m;
+  while (j <= n)
+    {
+      if (j < n && array[j + 1] < array[j])
+	j = j + 1;
+      if (t < array[j])
+	break;
+      else if (t >= array[j])
+	{
+		array[j / 2] = array[j];
+	  j = 2 * j;
+	}
+    }
+	array[j / 2] = t;
+  return;
+}
+
+void createMinHeap (int *array, int n)
+{
+  int k;
+  for (k = n / 2; k >= 1; k--)
+    {
+      MinHeapFunction (array, k, n);
+    }
+}
+
+
+ int main() {
+       int choice,sizeOfArray;
+        int array[30];
+       cout<<"1.You wants to make MIN HEAP"<<endl;
+       cout<<"2.You wants to make MAX HEAP"<<endl;
+       cout<<"3.EXIT"<<endl;
+       do {
+          cout<<"\nEnter your choice : ";
+          cin>>choice;
+          switch (choice) {
+             case 1: cout << "Enter the total no. of elements you wants in array :\n";
+              cin >> sizeOfArray;
+            
+              for (int i = 1; i <= sizeOfArray; i++)
+                {
+                  cout << "Enter element" << " " << (i) << endl;
+                  cin >> array[i];
+                }
+               createMinHeap(array, sizeOfArray);
+               cout<<"Min Heap\n";
+                           for (int i = 1; i <= sizeOfArray; i++) {
+                  cout<<array[i]<<endl;
+               }
+             
+             break;
+             case 2: cout<<"Enter the total no. of elements you wants in array :\n";
+                 cin>>sizeOfArray;
+                 for (int i = 1; i <= sizeOfArray; i++) {
+                      cout<<"Enter elements"<<" "<<(i)<<endl;
+                      cin>>array[i];
+                   }
+                    createMaxHeap(array,sizeOfArray);
+                   cout<<"Max Heap\n";
+                   for (int i = 1; i <= sizeOfArray; i++) {
+                      cout<<array[i]<<endl;
+                   }
+             break;
+             case 3:  cout<<"Exit";
+              break;
+             default: cout<<"Enter a valid choice."<<endl;
+          }
+       } while(choice!=3);
+       return 0;
+    }
